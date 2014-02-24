@@ -2,6 +2,6 @@
 
 int main()
 {
-	std::cout<<"Hej Git!"<<std::endl;
+	std::cout<<"Hej Git! "<<std::endl;
 	return 0;
 }
