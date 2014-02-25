@@ -3,7 +3,6 @@
 
 int main()
 {
-
 	GLFWwindow* window = Init("Pacman", 1280, 720);
 	ScreenManager manager;
 
