@@ -81,6 +81,17 @@
   <ItemGroup>
     <ClCompile Include="PacMan.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Button.h" />
+    <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\GLHeader.h" />
+    <ClInclude Include="Engine\Helper.h" />
+    <ClInclude Include="Engine\Input.h" />
+    <ClInclude Include="Engine\IScreen.h" />
+    <ClInclude Include="Engine\Rect.h" />
+    <ClInclude Include="Engine\ScreenManager.h" />
+    <ClInclude Include="Engine\Sprite.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
