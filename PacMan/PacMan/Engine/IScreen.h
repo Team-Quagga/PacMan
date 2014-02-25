@@ -1,6 +1,5 @@
 #pragma once
 #include "Input.h"
-struct GLFWwindow;
 class ScreenManager;
 class IScreen:public KeyObserver
 {

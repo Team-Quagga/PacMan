@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -65,6 +65,16 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\source</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GLHeader.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -121,5 +131,9 @@
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine\header</Filter>
     </ClInclude>
-  </ItemGroup>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h" />
+   </ItemGroup>
 </Project>

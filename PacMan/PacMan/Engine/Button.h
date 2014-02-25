@@ -1,6 +1,6 @@
 #pragma once
-#include "Rect.h"
 #include "GLHeader.h"
+#include "Rect.h"
 #include "Input.h"
 #include "Sprite.h"
 #include <functional>
@@ -52,6 +52,7 @@ public:
 	void SetSprite(Sprite* s)
 	{
 		this->s = s;
+		this->s->Set(*(this));
 	}
 	//Behövs ej om den är registrerad hos Input
 	void Clicked(GLFWwindow* w, int button, int pressed, double x, double y)
