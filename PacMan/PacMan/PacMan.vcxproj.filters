@@ -14,6 +14,15 @@
     <Filter Include="Engine\help">
       <UniqueIdentifier>{a5d02118-4152-4970-b084-d6d6d3914075}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{0a41fa1a-572e-4b1c-9906-db4633cdc9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\header">
+      <UniqueIdentifier>{e7f78e70-e51b-4633-823e-671d64f48668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\source">
+      <UniqueIdentifier>{01cd4367-0ae9-431b-b18e-fb320820283b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacMan.cpp" />
@@ -45,6 +54,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Helper.h">
       <Filter>Engine\help</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>Game\header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
