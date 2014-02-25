@@ -8,7 +8,6 @@ protected:
 	ScreenManager* mManager;
 	GLFWwindow* mWindow;
 public:
-
 	IScreen(ScreenManager* manager, GLFWwindow* window)
 	{
 		mManager = manager;
@@ -35,7 +34,7 @@ inline void IScreen::FocusMe()
 
 inline void IScreen::RemoveMe()
 {
-	mManager->RemoveScene(this);
+	mManager->RemoveScreen(this);
 }
 
 inline GLFWwindow* IScreen::GetWindow()

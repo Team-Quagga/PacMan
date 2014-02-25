@@ -44,7 +44,6 @@ private:
 	Input(){}
 	Input(Input const&); // prevent copies
 	void operator=(Input const&); // prevent assignments
-
 };
 Input* Input::i = nullptr;
 

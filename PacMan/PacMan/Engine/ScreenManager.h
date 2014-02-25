@@ -3,28 +3,29 @@
 class IScreen;
 class ScreenManager
 {
-	std::vector<IScreen*> m_scenes;
+	std::vector<IScreen*> mScreens;
 	unsigned short m_focused;
 	unsigned short m_size;
-	int getIndex(IScreen* scene);
+	int getIndex(IScreen* screen);
 public:
 	ScreenManager();
 	~ScreenManager();
 	void Update();
 	void Draw();
-	void AddScene(IScreen* scene);
-	void RemoveScene(IScreen* scene);
-	void SetFocus(IScreen* scene);
-	IScreen* GetFocusedScene();
+	void AddScreen(IScreen* screen);
+	void RemoveScreen(IScreen* screen);
+	void SetFocus(IScreen* screen);
+	IScreen* GetFocusedscreen();
 };
 
 #include "IScreen.h"
-inline int ScreenManager::getIndex(IScreen* scene)
+inline int ScreenManager::getIndex(IScreen* screen)
 {
 	for (int i = 0; i < m_size; i++)
-	if (m_scenes[i] == scene)
+	if (mScreens[i] == screen)
 		return i;
 }
+
 inline ScreenManager::ScreenManager()
 {
 	m_size = 0; m_focused = 0;
@@ -37,32 +38,32 @@ inline ScreenManager::~ScreenManager()
 inline void ScreenManager::Update()
 {
 	for (int i = 0; i < m_size; i++)
-		m_scenes[i]->Update();
+		mScreens[i]->Update();
 }
 
 inline void ScreenManager::Draw()
 {
 	for (int i = 0; i < m_size; i++)
-		m_scenes[i]->Draw();
+		mScreens[i]->Draw();
 }
 
-inline void ScreenManager::AddScene(IScreen* scene)
+inline void ScreenManager::AddScreen(IScreen* screen)
 {
 	m_size++;
-	m_scenes.push_back(scene);
+	mScreens.push_back(screen);
 }
 
-inline void ScreenManager::RemoveScene(IScreen* scene)
+inline void ScreenManager::RemoveScreen(IScreen* screen)
 {
-	m_scenes.erase(m_scenes.begin() + getIndex(scene));
+	mScreens.erase(mScreens.begin() + getIndex(screen));
 }
 
-inline void ScreenManager::SetFocus(IScreen* scene)
+inline void ScreenManager::SetFocus(IScreen* screen)
 {
-	m_focused = getIndex(scene);
+	m_focused = getIndex(screen);
 }
 
-inline IScreen* ScreenManager::GetFocusedScene()
+inline IScreen* ScreenManager::GetFocusedscreen()
 {
-	return (m_size != 0) ? m_scenes[m_focused] : nullptr;
+	return (m_size != 0) ? mScreens[m_focused] : nullptr;
 }
