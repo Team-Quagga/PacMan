@@ -8,7 +8,7 @@ public:
 	
 	virtual void Draw() = 0;
 	virtual void Init(vec3 position, int difficulty) = 0;
-private:
+protected:
 	//Model
 	//Sound
 	vec3 position;

@@ -79,9 +79,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Batch.cpp" />
+    <ClCompile Include="Blinky.cpp" />
+    <ClCompile Include="Clyde.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="IGhost.cpp" />
+    <ClCompile Include="Inky.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="PacMan.cpp" />
+    <ClCompile Include="Pinky.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Batch.h" />
+    <ClInclude Include="Blinky.h" />
+    <ClInclude Include="Clyde.h" />
     <ClInclude Include="Engine\Button.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GLHeader.h" />
@@ -92,6 +104,11 @@
     <ClInclude Include="Engine\ScreenManager.h" />
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="IGhost.h" />
+    <ClInclude Include="Inky.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Pinky.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,9 +23,48 @@
     <Filter Include="Game\source">
       <UniqueIdentifier>{01cd4367-0ae9-431b-b18e-fb320820283b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\header\Ghosts">
+      <UniqueIdentifier>{7847f1af-d6e5-4d1c-b9a2-f3bcf46b6e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\source\Ghosts">
+      <UniqueIdentifier>{ca3bd4c3-67a4-4016-a165-d4a2b5622e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\header">
+      <UniqueIdentifier>{865e53f5-9de9-4080-a3d3-bf26f06c9c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\source">
+      <UniqueIdentifier>{051db012-de74-4a93-8660-1583ba7faf2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacMan.cpp" />
+    <ClCompile Include="IGhost.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Blinky.cpp">
+      <Filter>Game\source\Ghosts</Filter>
+    </ClCompile>
+    <ClCompile Include="Clyde.cpp">
+      <Filter>Game\source\Ghosts</Filter>
+    </ClCompile>
+    <ClCompile Include="Inky.cpp">
+      <Filter>Game\source\Ghosts</Filter>
+    </ClCompile>
+    <ClCompile Include="Pinky.cpp">
+      <Filter>Game\source\Ghosts</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Batch.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -38,9 +77,6 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\GLHeader.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Button.h">
@@ -57,6 +93,33 @@
     </ClInclude>
     <ClInclude Include="IGameObject.h">
       <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="IGhost.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Blinky.h">
+      <Filter>Game\header\Ghosts</Filter>
+    </ClInclude>
+    <ClInclude Include="Inky.h">
+      <Filter>Game\header\Ghosts</Filter>
+    </ClInclude>
+    <ClInclude Include="Pinky.h">
+      <Filter>Game\header\Ghosts</Filter>
+    </ClInclude>
+    <ClInclude Include="Clyde.h">
+      <Filter>Game\header\Ghosts</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Engine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Batch.h">
+      <Filter>Engine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Engine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Engine\header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
