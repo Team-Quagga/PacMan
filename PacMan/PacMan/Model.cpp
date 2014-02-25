@@ -81,19 +81,19 @@ void Model::LoadFromFile(const char* path)
 	// Indexing
 	for( unsigned int i=0; i<vertexIndices.size(); i++ )
 	{
-		Vertex vertex;
+		Vertex vertices;
 		unsigned int Index = vertexIndices[i];
 		glm::vec3 vertex = tempVertices[Index-1];
 		
 
 		Index = uvIndices[i];
 		glm::vec2 uv = tempUvs[Index-1];
-		out_uvs.push_back(uv);
+		//out_uvs.push_back(uv);
 
 		Index = normalIndices[i];
 		glm::vec3 normal = tempNormals[Index-1];
-		out_normals.push_back(normal);
+		//out_normals.push_back(normal);
 
-		batches[0].vertices.push_back();
+		//batches[0].vertices.push_back();
 	}
 }
