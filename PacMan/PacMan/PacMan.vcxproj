@@ -79,6 +79,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\GLHeader.cpp" />
+    <ClCompile Include="Engine\Input.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="PacMan.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +95,9 @@
     <ClInclude Include="Engine\Rect.h" />
     <ClInclude Include="Engine\ScreenManager.h" />
     <ClInclude Include="Engine\Sprite.h" />
+    <ClInclude Include="GameScreen.h" />
     <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="MenuScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

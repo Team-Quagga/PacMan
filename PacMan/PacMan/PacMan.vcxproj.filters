@@ -26,6 +26,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PacMan.cpp" />
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GLHeader.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -58,5 +68,9 @@
     <ClInclude Include="IGameObject.h">
       <Filter>Game\header</Filter>
     </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h" />
   </ItemGroup>
 </Project>
