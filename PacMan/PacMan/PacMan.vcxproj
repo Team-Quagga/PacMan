@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -81,23 +81,27 @@
   <ItemGroup>
     <ClCompile Include="Batch.cpp" />
     <ClCompile Include="Blinky.cpp" />
+    <ClCompile Include="Candy.cpp" />
     <ClCompile Include="Clyde.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="IGhost.cpp" />
     <ClCompile Include="Inky.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
-
     <ClCompile Include="Engine\GLHeader.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="PacMan.cpp" />
     <ClCompile Include="Pinky.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Batch.h" />
     <ClInclude Include="Blinky.h" />
+    <ClInclude Include="Candy.h" />
     <ClInclude Include="Clyde.h" />
     <ClInclude Include="Engine\Button.h" />
     <ClInclude Include="Engine\Engine.h" />
@@ -113,8 +117,12 @@
     <ClInclude Include="IGhost.h" />
     <ClInclude Include="Inky.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Pinky.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

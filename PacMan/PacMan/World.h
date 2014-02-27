@@ -1,19 +1,22 @@
 #pragma once
 #include "Tile.h"
 #include "Batch.h"
+#include <glm\glm.hpp>
 class World
 {
+	
+	Tile* mMap;
+	Batch mBatch;
+public:
 	int mCandiesEaten;
 	int mCandiesTotal;
 	int mPlayerPosXY[2];
 	int mGhostPosXY[2];
-	Tile* mMap;
-	Batch mBatch;
-public:
 	World(void);
 	~World(void);
 	bool LoadMap(const char* path);
 	Tile* GetTile(int x, int y);
-	void Draw(float view[16], float projection[16]);
+	void Draw(glm::mat4 view, glm::mat4 projection);
+
 };
 

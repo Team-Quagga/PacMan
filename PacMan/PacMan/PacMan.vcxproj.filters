@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -74,7 +74,21 @@
     <ClCompile Include="Engine\Input.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameScreen.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Candy.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -134,6 +148,20 @@
     <ClInclude Include="MenuScreen.h">
       <Filter>Game\header</Filter>
     </ClInclude>
-    <ClInclude Include="GameScreen.h" />
-   </ItemGroup>
+    <ClInclude Include="GameScreen.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Candy.h">
+      <Filter>Game\header</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

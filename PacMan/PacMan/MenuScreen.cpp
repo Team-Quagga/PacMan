@@ -44,7 +44,6 @@ MenuScreen::MenuScreen(ScreenManager* manager, GLFWwindow* window)
 	i->Register(exit);
 }
 
-
 MenuScreen::~MenuScreen()
 {
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Engine\Engine.h"
 #include "MenuScreen.h"
+#include "GameScreen.h"
 
 int main()
 {
@@ -10,7 +11,7 @@ int main()
 	glfwSetKeyCallback(window, &Input::KeyCallback);
 	glfwSetMouseButtonCallback(window, &Input::MouseCallback);
 
-	MenuScreen menu(&manager, window);
+	GameScreen menu(&manager, window);
 	i->Register(menu);
 	manager.AddScreen(&menu);
 	manager.SetFocus(&menu);
