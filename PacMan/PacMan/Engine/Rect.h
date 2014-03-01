@@ -5,6 +5,8 @@ struct Rect
 protected:
 	float x, y, width, height;
 public:
+	Rect() {}
+	Rect(int _width, int _height) : width(_width), height(_height) {};
 	inline void Set(float x, float y, float w, float h);
 	inline void Set(Rect& r);
 	inline bool Intersect(Rect& r);

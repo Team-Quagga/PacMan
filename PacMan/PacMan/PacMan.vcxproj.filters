@@ -89,6 +89,12 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\source</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Viewport.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -162,6 +168,12 @@
     </ClInclude>
     <ClInclude Include="Candy.h">
       <Filter>Game\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Viewport.h">
+      <Filter>Engine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Engine\header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
