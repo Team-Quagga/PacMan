@@ -21,13 +21,12 @@ void Model::Load() {
 }
 
 void Model::Draw() {
-	glBindVertexArray(vertexArray);
-
-	Draw(NULL, NULL);
+	Draw(NULL, NULL, NULL);
 }
 
-void Model::Draw(glm::vec3* _pos, glm::vec3* _rot) {
-	for (int i = 0; i < batches.size(); i++) batches.at(i)->Draw(_pos, _rot);
+void Model::Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix) {
+	glBindVertexArray(vertexArray);
+	for (int i = 0; i < batches.size(); i++) batches.at(i)->Draw(_modelMatrix, _viewMatrix, _projMatrix);
 }
 
 void Model::LoadFromFile(const char* path)

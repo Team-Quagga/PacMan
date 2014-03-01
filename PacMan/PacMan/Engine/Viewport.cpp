@@ -12,17 +12,20 @@ void Viewport::BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, 
 	projMatrix[2][3] = (-near * far) / (far - near);
 
 	projMatrix[3][2] = 1.0f;
+	projMatrix[3][3] = 1.0f; //just in case
 }
 
-void Viewport::BuildViewMatrix(glm::vec3 _euler) {
-	glm::detail::tvec3<mediump_float> YAXIS(0, 1, 0);
-	glm::detail::tvec3<mediump_float> XAXIS(1, 0, 0);
-	
-	glm::detail::tquat<mediump_float> axis1 = angleAxis(_euler.y, YAXIS);
-	glm::detail::tquat<mediump_float> axis2 = angleAxis(_euler.x, XAXIS);
+using namespace glm;
 
-	glm::detail::tquat<mediump_float> orientation = axis2 * axis1;
-	glm::detail::tmat3x3<mediump_float> rotmat = mat3_cast(orientation);
+void Viewport::BuildViewMatrix(glm::vec3 _euler) {
+	vec3 YAXIS(0, 1, 0);
+	vec3 XAXIS(1, 0, 0);
+	
+	quat axis1 = angleAxis(_euler.y, YAXIS);
+	quat axis2 = angleAxis(_euler.x, XAXIS);
+
+	quat orientation = axis2 * axis1;
+	mat3 rotmat = mat3_cast(orientation);
 
 	//TODO: apply rotmat to viewMatrix
 

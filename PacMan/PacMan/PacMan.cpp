@@ -22,8 +22,10 @@ int main()
 	manager.AddScreen(&menu);
 	manager.SetFocus(&menu);
 
-
+	
 	//=============================
+	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
+
 	Model model = *Engine::LoadModel("../../../content/blender_cube.obj");
 	Camera camera(new Viewport(Rect(WIDTH, HEIGHT)));
 		Viewport* viewport = camera.GetViewport();
@@ -42,7 +44,7 @@ int main()
 
 
 		camera.Update();
-		model.Draw();
+		model.Draw(&glm::mat4(1), viewport->GetViewMatrix(), viewport->GetProjMatrix());
 
 
 		/* Swap front and back buffers */

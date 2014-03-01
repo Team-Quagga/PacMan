@@ -1,12 +1,10 @@
 #pragma once
 #include "Viewport.h"
 
-using namespace glm;
-
 class Camera {
 public:
-	quat orientation;
-	vec3 poition;
+	glm::quat orientation;
+	glm::vec3 poition;
 
 	Camera();
 	Camera(Viewport*);
@@ -14,6 +12,9 @@ public:
 	void Update();
 	void SetRotation(glm::vec3 _rot);
 	void SetPosition(glm::vec3 _pos);
+
+	glm::mat4* GetViewMatrix() { return viewport->GetViewMatrix(); }
+	glm::mat4* GetProjMatrix() { return viewport->GetProjMatrix(); }
 
 	Viewport* GetViewport() { return viewport; }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Batch.h"
+#include "Engine\Viewport.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ public:
 
 	void Load();
 	void Draw();
-	void Draw(glm::vec3* _pos, glm::vec3* _rot);
+	void Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
 	void DrawSolid();
 	void LoadFromFile(const char* path);
 	Material* FindMaterial(const char* name);

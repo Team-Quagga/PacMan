@@ -1,5 +1,6 @@
 #pragma once
 #include "Material.h"
+#include "Engine\Viewport.h"
 #include <vector>
 
 
@@ -16,7 +17,7 @@ class Batch
 {
 public:
 	void Load();
-	void Draw(glm::vec3* _pos, glm::vec3* _rot);
+	void Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
 	Batch(void);
 	Batch(Material*);
 	~Batch(void);

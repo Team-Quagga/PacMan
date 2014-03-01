@@ -95,6 +95,9 @@
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Engine\source</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Graphics.cpp">
+      <Filter>Engine\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -173,6 +176,9 @@
       <Filter>Engine\header</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Camera.h">
+      <Filter>Engine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics.h">
       <Filter>Engine\header</Filter>
     </ClInclude>
   </ItemGroup>
