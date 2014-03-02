@@ -8,9 +8,14 @@
 
 class Viewport {
 public:
-	Viewport(Rect _screen) : screen_rectangle(_screen) { };
+	Viewport(Rect _screen) : screen_rectangle(_screen) {
+		field_of_view = 45.0f;
+		aspect_ratio = 1.0f;
+		near = 0.1f;
+		far = 250.0f;
+	};
 
-	void BuildViewMatrix(glm::vec3 _euler);
+	void BuildViewMatrix(glm::vec3 _euler, glm::vec3 _translation);
 	void BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, float _near, float _far);
 
 	glm::mat4* GetViewMatrix() { return &viewMatrix; }

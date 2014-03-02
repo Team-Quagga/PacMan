@@ -1,6 +1,5 @@
 #pragma once
 #include "Material.h"
-#include "Engine\Viewport.h"
 #include <vector>
 
 

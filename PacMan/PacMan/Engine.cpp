@@ -1,10 +1,10 @@
 #include "Engine\Engine.h"
 #include <fstream>
 
-Model* Engine::LoadModel(const char* path)
+Model* Engine::LoadModel(const char* path, float scale)
 {
 	Model* tmp = new Model();
-	tmp->LoadFromFile(path);
+	tmp->LoadFromFile(path, scale);
 	return tmp;
 }
 

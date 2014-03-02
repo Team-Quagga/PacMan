@@ -79,13 +79,13 @@ void Material::SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, 
 	GLuint loc;
 
 	loc = glGetUniformLocation(shaderProgram, "worldMatrix");
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*_worldMatrix));
+	glUniformMatrix4fv(loc, 1, false, &(*_worldMatrix)[0][0]);
 
 	loc = glGetUniformLocation(shaderProgram, "viewMatrix");
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*_viewMatrix));
+	glUniformMatrix4fv(loc, 1, false, &(*_viewMatrix)[0][0]);
 
 	loc = glGetUniformLocation(shaderProgram, "projectionMatrix");
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*_projMatrix));
+	glUniformMatrix4fv(loc, 1, false, &(*_projMatrix)[0][0]);
 }
 
 void Material::SetDiffuseColor(glm::color _color) {

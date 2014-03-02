@@ -6,18 +6,13 @@ void Viewport::BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, 
 	if (_near) near = _near;
 	if (_far) far = _far;
 
-	projMatrix[0][0] = 1.0f / (aspect_ratio * tan(field_of_view * 0.5f));
-	projMatrix[1][1] = 1.0f / tan(field_of_view * 0.5f);
-	projMatrix[2][2] = far / (far - near);
-	projMatrix[2][3] = (-near * far) / (far - near);
 
-	projMatrix[3][2] = 1.0f;
-	projMatrix[3][3] = 1.0f; //just in case
+	projMatrix = glm::perspective(field_of_view, aspect_ratio, near, far);
 }
 
 using namespace glm;
 
-void Viewport::BuildViewMatrix(glm::vec3 _euler) {
+void Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
 	vec3 YAXIS(0, 1, 0);
 	vec3 XAXIS(1, 0, 0);
 	
@@ -27,7 +22,13 @@ void Viewport::BuildViewMatrix(glm::vec3 _euler) {
 	quat orientation = axis2 * axis1;
 	mat3 rotmat = mat3_cast(orientation);
 
-	//TODO: apply rotmat to viewMatrix
+	viewMatrix = glm::toMat4(orientation);
 
-	//Translation can be set later
+	vec3 m_xAxis(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
+	vec3 m_yAxis(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+	vec3 m_zAxis(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
+
+	viewMatrix[3][0] = -dot(m_xAxis, _translation);
+	viewMatrix[3][1] = -dot(m_yAxis, _translation);
+	viewMatrix[3][2] = -dot(m_zAxis, _translation);
 }

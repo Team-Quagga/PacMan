@@ -9,7 +9,7 @@
 class Engine
 {
 public:
-	static Model* LoadModel(const char* path);
+	static Model* LoadModel(const char* path, float scale);
 	static char* ReadFile(const char* path);
 
 	static Graphics* GetGraphics() { return Graphics::GetInstance(); }

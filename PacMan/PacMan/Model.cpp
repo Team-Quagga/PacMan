@@ -29,7 +29,7 @@ void Model::Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _pr
 	for (int i = 0; i < batches.size(); i++) batches.at(i)->Draw(_modelMatrix, _viewMatrix, _projMatrix);
 }
 
-void Model::LoadFromFile(const char* path)
+void Model::LoadFromFile(const char* path, float scale)
 {
 	// Open the .obj file
 	FILE* obj = fopen(path, "r");
@@ -71,16 +71,30 @@ void Model::LoadFromFile(const char* path)
 			fscanf(obj, "%s\n", matName);
 
 			//Material switch
-			Batch* tmp = new Batch(new Material(matName, "../../../content/default_material.vs", "../../../content/default_material.ps", NULL));
-			tmp->vertexBuffer = vertexBuffer;
-			batches.push_back(tmp);
-			current = tmp;
+			current = new Batch(new Material(matName, "../../../content/default_material.vs", "../../../content/default_material.ps", NULL));
+			current->vertexBuffer = vertexBuffer;
+			batches.push_back(current);
 		}
 		else if (strcmp(lineHeader, "v") == 0)
 		{
 			glm::vec3 vertex;
 			fscanf(obj, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 			tempVertices.push_back(vertex);
+
+			shared.push_back(vertex.x);
+			shared.push_back(vertex.y);
+			shared.push_back(vertex.z);
+
+			shared.push_back(1);
+			shared.push_back(0);
+			shared.push_back(0);
+
+			shared.push_back(0);
+			shared.push_back(0);
+
+			shared.push_back(0);
+			shared.push_back(1);
+			shared.push_back(0);
 		}
 		else if (strcmp(lineHeader, "vt") == 0)
 		{
@@ -124,26 +138,29 @@ void Model::LoadFromFile(const char* path)
 			if (matches == 4 || matches == 8 || matches == 12) quad = true;
 
 			//Fill the temporary triangle/quad buffer before sending to GPU
-			for (int v = 0; v < 2 + quad; v++) {
-				glm::vec3 pos = tempVertices[vertexIndex[v]-1];
+			for (int i = 0; i < 3 + quad; i++) {
+				glm::vec3 pos = tempVertices[vertexIndex[i] - 1] * glm::vec3(scale, scale, scale);
 				glm::vec2 uv;
-				glm::vec3 norm;
-				if (tempUvs) uv = tempUvs->at(uvIndex[v] - 1);
-				if (tempNormals) norm = tempNormals->at(uvIndex[v] - 1);
+				glm::vec3 norm(0, 1, 0);
+				if (tempUvs) uv = tempUvs->at(uvIndex[i] - 1);
+				if (tempNormals) norm = tempNormals->at(uvIndex[i] - 1);
 
-				shared.push_back(pos.x);
-				shared.push_back(pos.y);
-				shared.push_back(pos.z);
+				shared[(vertexIndex[i] - 1) * 11 + 0] = pos.x;
+				shared[(vertexIndex[i] - 1) * 11 + 1] = pos.y;
+				shared[(vertexIndex[i] - 1) * 11 + 2] = pos.z;
 
-				shared.push_back(uv.x);
-				shared.push_back(uv.y);
-				
-				shared.push_back(norm.x);
-				shared.push_back(norm.y);
-				shared.push_back(norm.z);
+				shared[(vertexIndex[i] - 1) * 11 + 6] = uv.x;
+				shared[(vertexIndex[i] - 1) * 11 + 7] = uv.y;
 
+				shared[(vertexIndex[i] - 1) * 11 + 8] = norm.x;
+				shared[(vertexIndex[i] - 1) * 11 + 9] = norm.y;
+				shared[(vertexIndex[i] - 1) * 11 + 10] = norm.y;
+			}
+
+			int order[6] {0, 1, 2, 0, 2, 3};
+			for (int v = 0; v < 3 * (quad + 1); v++) {
 				current->element_count++;
-				current->elements.push_back(vertexIndex[v]);
+				current->elements.push_back(vertexIndex[order[v]] - 1);
 			}
 		}
 	}

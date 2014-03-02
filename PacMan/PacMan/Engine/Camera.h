@@ -4,7 +4,7 @@
 class Camera {
 public:
 	glm::quat orientation;
-	glm::vec3 poition;
+	glm::vec3 position;
 
 	Camera();
 	Camera(Viewport*);
