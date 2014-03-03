@@ -14,8 +14,8 @@ void Camera::Update() {
 	refresh = false;
 }
 
-void Camera::SetRotation(glm::vec3 _rot) {
-	orientation = glm::quat(_rot);
+void Camera::SetOrientation(float pitch, float yaw) {
+	orientation = glm::quat(glm::vec3(pitch, yaw, 0));
 	refresh = true;
 }
 

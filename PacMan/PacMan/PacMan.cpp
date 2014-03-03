@@ -23,17 +23,16 @@ int main()
 	manager.AddScreen(&menu);
 	manager.SetFocus(&menu);
 
-	float test = 0;
 	
 	//=============================
 	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
-	Model model = *Engine::LoadModel("../../../content/blender_sphere.obj", 0.1);
-	Camera camera(new Viewport(Rect(WIDTH, HEIGHT)));
+	Model model = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	Camera camera(new Viewport(0, 0, 1, 1));
 		Viewport* viewport = camera.GetViewport();
 		viewport->BuildProjectionMatrix(60.0f, (float)WIDTH / (float)HEIGHT, 0.1f, 250.0f);
-
-	camera.SetRotation(glm::vec3(0, 0.1, 0));
-	camera.SetPosition(glm::vec3(0.0, 0.1, 0.5));
+	
+		int camera_rot = 0;
+	camera.SetPosition(glm::vec3(0.0, 0.3, 0.5));
 
 
 
@@ -55,7 +54,8 @@ int main()
 		/* Draw */
 		manager.Draw();
 
-
+		camera_rot++;
+		camera.SetOrientation( 0.5, glm::sin(camera_rot * 0.001)*0.5 );
 		camera.Update();
 		model.Draw(&glm::mat4(1), viewport->GetViewMatrix(), viewport->GetProjMatrix());
 

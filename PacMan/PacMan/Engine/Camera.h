@@ -10,7 +10,7 @@ public:
 	Camera(Viewport*);
 
 	void Update();
-	void SetRotation(glm::vec3 _rot);
+	void SetOrientation(float pitch, float yaw);
 	void SetPosition(glm::vec3 _pos);
 
 	glm::mat4* GetViewMatrix() { return viewport->GetViewMatrix(); }
