@@ -154,7 +154,7 @@ void Model::LoadFromFile(const char* path, float scale)
 
 				shared[(vertexIndex[i] - 1) * 11 + 8] = norm.x;
 				shared[(vertexIndex[i] - 1) * 11 + 9] = norm.y;
-				shared[(vertexIndex[i] - 1) * 11 + 10] = norm.y;
+				shared[(vertexIndex[i] - 1) * 11 + 10] = norm.z;
 			}
 
 			int order[6] = {0, 1, 2, 0, 2, 3};

@@ -5,6 +5,7 @@ class Camera {
 public:
 	glm::quat orientation;
 	glm::vec3 position;
+	float pitch, yaw;
 
 	Camera();
 	Camera(Viewport*);
@@ -12,7 +13,6 @@ public:
 	void Update();
 	void SetOrientation(float pitch, float yaw);
 	void SetPosition(glm::vec3 _pos);
-	void Rotate(float degrees, glm::vec3& axis);// ej testad
 
 	glm::mat4* GetViewMatrix() { return viewport->GetViewMatrix(); }
 	glm::mat4* GetProjMatrix() { return viewport->GetProjMatrix(); }
