@@ -4,9 +4,11 @@ class Candy :
 	public IGameObject
 {
 public:
-	Candy(void);
+	Candy(bool, vec3);
 	~Candy(void);
 	void Draw();
-	void Init(vec3 position, int difficulty);
+	void Init(vec3);
+private:
+	bool super;
 };
 
