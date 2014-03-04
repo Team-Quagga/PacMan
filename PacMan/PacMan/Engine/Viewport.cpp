@@ -1,5 +1,18 @@
 #include "Viewport.h"
 
+Viewport::Viewport(float _x, float _y, float _w, float _h) : x(_x), y(_y), width(_w), height(_h) {
+	field_of_view = 45.0f;
+	aspect_ratio = 1.0f;
+	near = 0.1f;
+	far = 250.0f;
+
+	glGenFramebuffers(1, &frameBuffer);
+};
+
+Viewport::~Viewport() {
+	glDeleteFramebuffers(1, &frameBuffer);
+}
+
 void Viewport::BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, float _near, float _far) {
 	if (_field_of_view) field_of_view = _field_of_view;
 	if (_aspect_ratio) aspect_ratio = _aspect_ratio;
@@ -31,4 +44,8 @@ void Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
 	viewMatrix[3][0] = -dot(m_xAxis, _translation);
 	viewMatrix[3][1] = -dot(m_yAxis, _translation);
 	viewMatrix[3][2] = -dot(m_zAxis, _translation);
+}
+
+void Viewport::SetRenderTarget() {
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 }
