@@ -84,6 +84,9 @@
     <ClCompile Include="Candy.cpp" />
     <ClCompile Include="Clyde.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Engine\Camera.cpp" />
+    <ClCompile Include="Engine\Graphics.cpp" />
+    <ClCompile Include="Engine\Viewport.cpp" />
     <ClCompile Include="IGhost.cpp" />
     <ClCompile Include="Inky.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -104,14 +107,17 @@
     <ClInclude Include="Candy.h" />
     <ClInclude Include="Clyde.h" />
     <ClInclude Include="Engine\Button.h" />
+    <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GLHeader.h" />
+    <ClInclude Include="Engine\Graphics.h" />
     <ClInclude Include="Engine\Helper.h" />
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\IScreen.h" />
     <ClInclude Include="Engine\Rect.h" />
     <ClInclude Include="Engine\ScreenManager.h" />
     <ClInclude Include="Engine\Sprite.h" />
+    <ClInclude Include="Engine\Viewport.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGhost.h" />

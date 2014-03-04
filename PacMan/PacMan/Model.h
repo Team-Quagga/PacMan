@@ -1,6 +1,7 @@
 #pragma once
+
 #include "Batch.h"
-#include <glm\glm.hpp>
+
 using namespace std;
 
 class Model
@@ -8,10 +9,18 @@ class Model
 public:
 	Model(void);
 	~Model(void);
-	void Draw(glm::vec3 position, glm::vec3 orientation);
+
+	void Load();
+	void Draw();
+	void Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
 	void DrawSolid();
-	void LoadFromFile(const char* path);
+	void LoadFromFile(const char* path, float scale);
+	Material* FindMaterial(const char* name);
+
 private:
-	vector<Batch> batches;
+	std::vector<float> shared;
+	std::vector<Batch*> batches;
+	GLuint vertexArray;
+	GLuint vertexBuffer;
 };
 
