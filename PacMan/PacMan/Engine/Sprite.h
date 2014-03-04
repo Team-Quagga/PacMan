@@ -79,6 +79,7 @@ inline void Sprite::SetTexCoords(float a[2], float b[2], float c[2], float d[2])
 
 inline void Sprite::Draw()
 {
+	//glDisable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	//glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -95,13 +96,13 @@ inline void Sprite::Draw()
 	//glColor3f(0, 0, 0.0);
 	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(coords.a[0], coords.a[1]);
-	glVertex3f(x, y + height, 0);// up-left
+	glVertex3f(x, y + height, -1);// up-left
 	glTexCoord2f(coords.b[0], coords.b[1]);
-	glVertex3f(x, y, 0);// down-left
+	glVertex3f(x, y, -1);// down-left
 	glTexCoord2f(coords.c[0], coords.c[1]);
-	glVertex3f(x + width, y + height, 0);// up-right
+	glVertex3f(x + width, y + height, -1);// up-right
 	glTexCoord2f(coords.d[0], coords.d[1]);
-	glVertex3f(x + width, y, 0);// down-rightS
+	glVertex3f(x + width, y, -1);// down-rightS
 	glEnd();
 
 	glDisable(GL_BLEND);

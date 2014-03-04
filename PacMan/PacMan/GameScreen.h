@@ -2,8 +2,8 @@
 #include "engine\iscreen.h"
 #include "World.h"
 #include "Player.h"
+#include "Engine\Camera.h"
 
-class Camera;
 class GameScreen: public IScreen
 {
 	World mWorld;

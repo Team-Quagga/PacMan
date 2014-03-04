@@ -157,7 +157,7 @@ void Model::LoadFromFile(const char* path, float scale)
 				shared[(vertexIndex[i] - 1) * 11 + 10] = norm.y;
 			}
 
-			int order[6] {0, 1, 2, 0, 2, 3};
+			int order[6] = {0, 1, 2, 0, 2, 3};
 			for (int v = 0; v < 3 * (quad + 1); v++) {
 				current->element_count++;
 				current->elements.push_back(vertexIndex[order[v]] - 1);

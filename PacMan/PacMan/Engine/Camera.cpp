@@ -23,3 +23,12 @@ void Camera::SetPosition(glm::vec3 _pos) {
 	position = _pos;
 	refresh = true;
 }
+
+void Camera::Rotate(float degrees, glm::vec3& axis)
+{
+    if ( axis == glm::vec3(0.0f, 1.0f, 0.0f) )
+        orientation =  glm::normalize(glm::angleAxis(degrees, axis)) * orientation;
+    else
+        orientation = orientation * glm::normalize(glm::angleAxis(degrees, axis));
+	refresh = true;
+}
