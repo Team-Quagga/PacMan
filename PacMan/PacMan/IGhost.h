@@ -23,6 +23,8 @@ protected:
 	GhostStates state;
 	vec2 scatterTile;
 	vec2 targetTile;
-	vec2 nextTile;
-	vec2 currentTile;
+	vec2 nextTile; //New
+	vec2 currentTile; //New
+private:
+	void TestTiles(vec2 preferedTile); //New
 };
