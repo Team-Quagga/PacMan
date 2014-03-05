@@ -12,8 +12,9 @@ enum GhostStates
 class IGhost:protected IGameObject
 {
 public:
-	void Init(vec3 position) override;
-	void Draw() override;
+	IGhost(){};
+	virtual void Init(vec3 position);
+	virtual void Draw();
 	void ChoseDirection();
 	void Move();
 	void Update();

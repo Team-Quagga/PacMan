@@ -1,6 +1,10 @@
 #include <gl\glew.h>
 #include "World.h"
 #include <glm\glm.hpp>
+#include "Blinky.h"
+#include "Clyde.h"
+#include "Inky.h"
+#include "Pinky.h"
 
 World::World(void)
 {

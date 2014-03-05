@@ -104,6 +104,5 @@ void IGhost::Move()
 //TODO
 void IGhost::Update()
 {
-	
 	Move();
 }

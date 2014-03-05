@@ -2,10 +2,10 @@
 #include "Tile.h"
 #include "Batch.h"
 #include <glm\glm.hpp>
-#include "Blinky.h"
-#include "Clyde.h"
-#include "Inky.h"
-#include "Pinky.h"
+//#include "Blinky.h"
+//#include "Clyde.h"
+//#include "Inky.h"
+//#include "Pinky.h"
 
 class World
 {
