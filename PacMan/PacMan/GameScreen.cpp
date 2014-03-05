@@ -3,17 +3,17 @@
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	:IScreen(manager, window)
 {
-	int witdh, height;
-	glfwGetWindowSize(window, &witdh, &height);// sätt i engine
-	glfwSetCursorPos(mWindow, witdh / 2, height / 2);
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);// sätt i engine
+	glfwSetCursorPos(mWindow, width / 2, height / 2);
 
-	mCamera = new Camera(new Viewport(0,0, witdh, height));
+	mCamera = new Camera(new Viewport(0,0, width, height));
 		Viewport* viewport = mCamera->GetViewport();
-		viewport->BuildProjectionMatrix(60.0f, (float)witdh / (float)height, 0.1f, 250.0f);
+		viewport->BuildProjectionMatrix(60.0f, (float)width / (float)height, 0.1f, 250.0f);
 
 		
 	mCamera->SetOrientation(0, 0.1);
-	mCamera->SetPosition(glm::vec3(0, 0, 0.5));
+	mCamera->SetPosition(glm::vec3(0.0, 0.1, 0.5));
 
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
@@ -21,6 +21,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 			glfwSetWindowShouldClose(w, true);
 	};
 	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	LoadWorld("bilder/map1.bmp");
 }
 
 
@@ -68,7 +69,7 @@ void GameScreen::Update()
 	glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
 	glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;
 	glm::vec3 position = mCamera->position;
-
+	
 	// Move forward
 	if (glfwGetKey(mWindow,  GLFW_KEY_W ) == GLFW_PRESS)
 	{
