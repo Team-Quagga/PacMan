@@ -9,5 +9,6 @@ class Tile
 public:
 	Tile(void);
 	~Tile(void);
+	bool GetWalkable();
 };
 

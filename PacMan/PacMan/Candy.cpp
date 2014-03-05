@@ -1,10 +1,11 @@
 #include "Candy.h"
-#include "Engine\Engine.h"
 
 Candy::Candy(bool s, vec3 position)
 {
 	if(s) super = true;
-	Engine.LoadModel("candy.obj");
+	if(super) mModel = *Engine::LoadModel("super.obj", 1);
+	else mModel = *Engine::LoadModel("candy.obj", 1);
+	
 	Init(position);
 }
 
@@ -16,10 +17,11 @@ Candy::~Candy(void)
 
 void Candy::Draw()
 {
-	//Draw object
+	mModel.Draw();
 }
 
 void Candy::Init(vec3 position)
 {
+	mPosition = position;
 	//Initiate buffers?
 }

@@ -15,7 +15,7 @@ public:
 	World(void);
 	~World(void);
 	bool LoadMap(const char* path);
-	Tile* GetTile(int x, int y);
+	static Tile* GetTile(int x, int y);
 	void Draw(glm::mat4 view, glm::mat4 projection);
 
 };

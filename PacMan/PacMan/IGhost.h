@@ -1,4 +1,5 @@
 #include "IGameObject.h"
+#include "World.h"
 
 enum GhostStates
 {
@@ -10,7 +11,7 @@ enum GhostStates
 class IGhost:protected IGameObject
 {
 public:
-	void Init(vec3 position, int difficulty) override;
+	void Init(vec3 position) override;
 	void Draw() override;
 	void ChoseDirection();
 	void Move();
@@ -22,4 +23,6 @@ protected:
 	GhostStates state;
 	vec2 scatterTile;
 	vec2 targetTile;
+	vec2 nextTile;
+	vec2 currentTile;
 };
