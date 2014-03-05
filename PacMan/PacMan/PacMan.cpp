@@ -23,19 +23,6 @@ int main()
 	manager.AddScreen(&menu);
 	manager.SetFocus(&menu);
 
-	
-	//=============================
-	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
-
-	/*Model model = *Engine::LoadModel("../../../content/blender_sphere.obj", 0.1);
-	Camera camera(new Viewport(Rect(WIDTH, HEIGHT)));
-		Viewport* viewport = camera.GetViewport();
-		viewport->BuildProjectionMatrix(60.0f, (float)WIDTH / (float)HEIGHT, 0.1f, 250.0f);
-
-	camera.SetRotation(glm::vec3(0, 0.1, 0));
-	camera.SetPosition(glm::vec3(0.0, 0.1, 0.5));*/
-
-
 
 
 	while(!glfwWindowShouldClose(window))

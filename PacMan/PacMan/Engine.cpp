@@ -11,7 +11,7 @@ Model* Engine::LoadModel(const char* path, float scale)
 
 char* Engine::ReadFile(const char* filename)
 {
-	ifstream fil;
+	std::ifstream fil;
 	int fileSize;
 	char input;
 	char* buffer;

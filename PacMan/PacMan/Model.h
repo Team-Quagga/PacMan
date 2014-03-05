@@ -2,7 +2,6 @@
 
 #include "Batch.h"
 
-using namespace std;
 
 class Model
 {

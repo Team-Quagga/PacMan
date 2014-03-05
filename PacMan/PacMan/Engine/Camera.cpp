@@ -8,16 +8,23 @@ Camera::Camera(Viewport* _viewport) : viewport(_viewport) {
 
 void Camera::Update() {
 	if (refresh) {
-		viewport->BuildViewMatrix(glm::eulerAngles(orientation), position);
+		//viewport->BuildViewMatrix(glm::eulerAngles(orientation), position);
+		orientation = viewport->BuildViewMatrix(rotation, position);
 		viewport->BuildProjectionMatrix(NULL, NULL, NULL, NULL);
 	}
 	refresh = false;
 }
 
 void Camera::SetOrientation(float pitch, float yaw) {
-	this->pitch = pitch;
-	this->yaw = yaw;
-	orientation = glm::quat(glm::vec3(pitch, yaw, 0));
+	//orientation = glm::quat(glm::vec3(pitch, yaw, 0));
+	rotation.x = pitch;
+	rotation.y = yaw;
+	refresh = true;
+}
+
+void Camera::LookAt(glm::vec3 _world_pos) {
+	rotation = _world_pos - position;
+	printf("LOOKAT: %f, %f, %f \n", rotation.y, rotation.x, rotation.z);
 	refresh = true;
 }
 

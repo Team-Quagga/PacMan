@@ -3,11 +3,9 @@
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	:IScreen(manager, window)
 {
-	//=============================
-	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
-	//Model model = *Engine::LoadModel("../../../content/blender_sphere.obj", 0.1);
 	int witdh, height;
 	glfwGetWindowSize(window, &witdh, &height);// sätt i engine
+	glfwSetCursorPos(mWindow, witdh / 2, height / 2);
 
 	mCamera = new Camera(new Viewport(0,0, witdh, height));
 		Viewport* viewport = mCamera->GetViewport();
@@ -15,7 +13,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 
 		
 	mCamera->SetOrientation(0, 0.1);
-	mCamera->SetPosition(glm::vec3(0.0, 0.1, 0.5));
+	mCamera->SetPosition(glm::vec3(0, 0, 0.5));
 
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
@@ -57,43 +55,19 @@ void GameScreen::Update()
 
 
 	// Compute new orientation
-	horizontalAngle -= (oxpos-xpos)*0.001;//float(1024/2 - xpos );
-	verticalAngle   -= (oypos-ypos)*0.001;//float( 768/2 - ypos );
+	horizontalAngle -= (oxpos-xpos)*0.1;//float(1024/2 - xpos );
+	verticalAngle   -= (oypos-ypos)*0.1;//float( 768/2 - ypos );
 
 
-	
+	mCamera->Update();
 	// Reset mouse position for next frame
 	glfwSetCursorPos(mWindow, 1280/2, 720/2);
-	/*if(verticalAngle >= 3.14/2) verticalAngle = 3.14/2;
-	if(verticalAngle <= -3.14/2) verticalAngle = -3.14/2;
+	if (verticalAngle > 15.0 / 2) verticalAngle = 15.0 / 2;
+	if (verticalAngle < -15.0 / 2) verticalAngle = -15.0 / 2;
 
-	if(horizontalAngle < 0) horizontalAngle += 3.14;
-	if(horizontalAngle > 3.14) horizontalAngle -= 3.14;*/
-
-	// Direction : Spherical coordinates to Cartesian coordinates conversion
-	glm::vec3 direction(
-		cos(verticalAngle) * sin(horizontalAngle), 
-		sin(verticalAngle),
-		cos(verticalAngle) * cos(horizontalAngle)
-	);
-
-	direction = glm::normalize(direction);
-	
-	// Right vector
-	glm::vec3 right = glm::vec3(
-		sin(horizontalAngle - 3.14f/2.0f), 
-		0,
-		cos(horizontalAngle - 3.14f/2.0f)
-	);
-	
-	// Up vector
-	glm::vec3 up = glm::cross(right, direction);
-
-	// Forward vector
-	glm::vec3 forward(direction.x, 0, direction.z);
-	forward = glm::vec3(forward.x/forward.length(), 0, forward.z/forward.length());
-	glm::vec3 position = mCamera->position;// get funktion
-
+	glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
+	glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;
+	glm::vec3 position = mCamera->position;
 
 	// Move forward
 	if (glfwGetKey(mWindow,  GLFW_KEY_W ) == GLFW_PRESS)
@@ -108,18 +82,18 @@ void GameScreen::Update()
 	// Strafe right
 	if (glfwGetKey(mWindow,  GLFW_KEY_A ) == GLFW_PRESS)
 	{
-		position += right * deltaTime;
+		position -= strafe * deltaTime;
 	}
 	// Strafe left
 	if (glfwGetKey(mWindow,  GLFW_KEY_D ) == GLFW_PRESS)
 	{
-		position -= right * deltaTime;
+		position += strafe * deltaTime;
 	}
 
-	mCamera->SetOrientation(verticalAngle,horizontalAngle);
 	mCamera->SetPosition(position);
+	mCamera->SetOrientation(verticalAngle, horizontalAngle);
+	//mCamera->LookAt(glm::vec3(0, 0, 0)); Not working yet
 
-	printf("V - %f --- H -%f\n", verticalAngle, horizontalAngle);
 	
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;
