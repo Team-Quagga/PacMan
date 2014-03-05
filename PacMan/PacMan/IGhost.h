@@ -1,3 +1,4 @@
+#pragma once
 #include "IGameObject.h"
 #include "World.h"
 
@@ -17,7 +18,7 @@ public:
 	void Move();
 	void Update();
 
-	virtual void GetTargetTile(vec2, vec2, vec2) = 0;
+	void GetTargetTile(vec2, vec2, vec2);
 protected:
 	bool active;
 	GhostStates state;

@@ -1,6 +1,6 @@
 #include "IGhost.h"
 
-class Clyde:IGhost
+class Clyde:public IGhost
 {
 public:
 	void GetTargetTile(vec2 pacmanTile);

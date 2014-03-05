@@ -6,12 +6,12 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	//=============================
 	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
 	//Model model = *Engine::LoadModel("../../../content/blender_sphere.obj", 0.1);
-	int witdh, height;
-	glfwGetWindowSize(window, &witdh, &height);// sätt i engine
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);// sätt i engine
 
-	mCamera = new Camera(new Viewport(0,0, witdh, height));
+	mCamera = new Camera(new Viewport(0,0, width, height));
 		Viewport* viewport = mCamera->GetViewport();
-		viewport->BuildProjectionMatrix(60.0f, (float)witdh / (float)height, 0.1f, 250.0f);
+		viewport->BuildProjectionMatrix(60.0f, (float)width / (float)height, 0.1f, 250.0f);
 
 		
 	mCamera->SetOrientation(0, 0.1);
@@ -23,6 +23,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 			glfwSetWindowShouldClose(w, true);
 	};
 	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	LoadWorld("bilder/map1.bmp");
 }
 
 
