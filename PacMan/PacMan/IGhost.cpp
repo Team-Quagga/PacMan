@@ -1,6 +1,6 @@
 #include "IGhost.h"
 
-void IGhost::Init(vec3 position, int difficulty) 
+void IGhost::Init(vec3 position) 
 {
 
 }

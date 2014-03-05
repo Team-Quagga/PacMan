@@ -7,7 +7,8 @@ class Tile
 	Candy* mCandy;
 	IGhost* mGhost;
 public:
-	Tile(void);
+	Tile(void){};
+	Tile(bool wall, Candy* candy, IGhost* ghost);
 	~Tile(void);
 };
 

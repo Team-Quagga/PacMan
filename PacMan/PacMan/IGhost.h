@@ -1,3 +1,4 @@
+#pragma once
 #include "IGameObject.h"
 
 enum GhostStates
@@ -10,13 +11,13 @@ enum GhostStates
 class IGhost:protected IGameObject
 {
 public:
-	void Init(vec3 position, int difficulty) override;
+	void Init(vec3 position);
 	void Draw() override;
 	void ChoseDirection();
 	void Move();
 	void Update();
 
-	virtual void GetTargetTile(vec2, vec2, vec2) = 0;
+	void GetTargetTile(vec2, vec2, vec2);
 protected:
 	bool active;
 	GhostStates state;

@@ -4,7 +4,7 @@
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	:IScreen(manager, window)
 {
-
+	LoadWorld("bilder/map1.bmp");
 }
 
 
