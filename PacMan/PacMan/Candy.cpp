@@ -15,6 +15,7 @@ Candy::Candy(int seed)
 
 Candy::~Candy(void)
 {
+
 }
 
 

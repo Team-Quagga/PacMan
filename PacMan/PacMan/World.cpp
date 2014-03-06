@@ -5,10 +5,7 @@
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
+#include "Model.h"
 
 World::World(void)
 {
@@ -30,6 +27,14 @@ bool World::LoadMap(const char* path)
 
 	bool superCandy;
 
+	// Load cube
+	wallModel.LoadFromFile("../../content/cube.obj", 0.5);
+	wallModel.Load();
+
+	// Load Ground
+	groundModel.LoadFromFile("../../content/plane.obj", 0.5);
+	groundModel.Load();
+
 	int ghostCounter = 0;
 	for (int y = 0; y < 20 ; y++)
 	{
@@ -37,42 +42,42 @@ bool World::LoadMap(const char* path)
 		{
 			if(colorData[x][y].b == 255 && colorData[x][y].g == 255 && colorData[x][y].r == 255)
 			{
-				map[x][y] = Tile(false, NULL, NULL);
+				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
 			}
 			if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
 			{
-				map[x][y] = Tile(true, NULL, NULL);
+				map[x][y] = Tile(true, NULL, NULL, x*0.5, y*0.5, &wallModel);
 			}
 			else if(colorData[x][y].b == 255)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
-				map[x][y] = Tile(false, NULL, NULL);
+				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
 			}
 			else if(colorData[x][y].g == 255)
 			{
-				Candy candy = Candy(x*y);
-				candy.Init(glm::vec3(x * 10 + 5, 5, y * 10 + 5));
-				map[x][y] = Tile(false, &candy, NULL);
+				/*Candy candy = Candy(x*y);
+				candy.Init(glm::vec3(x * 10 + 5, 5, y * 10 + 5));*/
+				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
 			}
 			else if(colorData[x][y].r == 255)
 			{
 				switch(ghostCounter)
 				{
 				case 0:
-					map[x][y] = Tile(false,NULL,&blinky);
+					map[x][y] = Tile(false,NULL,&blinky, x*10, y*10, &wallModel);
 					ghostCounter++;
 					break;
 				case 1:
-					map[x][y] = Tile(false,NULL,&clyde);
+					map[x][y] = Tile(false,NULL,&clyde, x*10, y*10, &wallModel);
 					ghostCounter++;
 					break;
 				case 2:
-					map[x][y] = Tile(false,NULL,&inky);
+					map[x][y] = Tile(false,NULL,&inky, x*10, y*10, &wallModel);
 					ghostCounter++;
 					break;
 				case 3:
-					map[x][y] = Tile(false,NULL,&pinky);
+					map[x][y] = Tile(false,NULL,&pinky, x*10, y*10, &wallModel);
 					ghostCounter++;
 					break;
 				}
@@ -91,56 +96,12 @@ void World::CreateMapBuffer()
 	{
 		for (int x = 0; x < 20; x++)
 		{
-			vertices.push_back(x*10);
-			vertices.push_back(0);
-			vertices.push_back(y*10);
-			vertices.push_back(1);
-			vertices.push_back(1);
-			vertices.push_back(1);
-			vertices.push_back(x/20);
-			vertices.push_back(y/20);
-			vertices.push_back(0);
-			vertices.push_back(1);
-			vertices.push_back(0);
+			
 		}
 	}
 
-	glGenBuffers(1, &vertexBuffer); //Generate one vertex object
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
-
-	mBatch = new Batch(new Material("None", "../../content/default_material.vs", "../../content/default_material.ps", NULL, NULL));
-
-	mBatch->vertexBuffer = vertexBuffer;
-
-	// Indexing
-	std::vector<unsigned int> indices;
-
-	int i = 0;
-    for (int row=0; row<19; row++) 
-	{
-        if ( (row&1)==0 ) 
-		{ // even rows
-            for (int col=0; col<19; col++) 
-			{
-                indices.push_back(col + row * 19);
-                indices.push_back(col + (row+1) * 19);
-            }
-        } else 
-		{ // odd rows
-            for (int col=19; col>0; col--) 
-			{
-                indices.push_back(col + (row+1) * 19);
-                indices.push_back(col - 1 + + row * 19);
-            }
-        }
-    }
-	for (int i = 0; i < indices.size(); i++)
-	{
-		mBatch->elements.push_back(indices[i]);
-	}
-
-	mBatch->Load();
+	
+	
 }
 Tile* World::GetTile(int x, int y)
 {
@@ -148,7 +109,16 @@ Tile* World::GetTile(int x, int y)
 }
 void World::Draw(glm::mat4 view, glm::mat4 projection)
 {
-	mBatch->Draw(&glm::mat4(1), &view, &projection);
+	//mBatch->Draw(&glm::mat4(1), &view, &projection);
+	for(int y = 0; y < 20; y++)
+	{
+		for(int x = 0; x < 20; x++)
+		{
+			map[x][y].Draw(view, projection);
+		}
+	}
+
+	groundModel.Draw(&glm::mat4(1), &view, &projection);
 }
 
 GLuint World::LoadBMP(const char * imagepath)

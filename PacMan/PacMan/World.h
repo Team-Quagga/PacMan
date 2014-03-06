@@ -2,15 +2,7 @@
 #include "Tile.h"
 #include "Batch.h"
 #include <glm\glm.hpp>
-<<<<<<< HEAD
 
-
-=======
-//#include "Blinky.h"
-//#include "Clyde.h"
-//#include "Inky.h"
-//#include "Pinky.h"
->>>>>>> origin/master
 
 class World
 {
@@ -33,5 +25,8 @@ public:
 	GLuint vertexBuffer;
 	std::vector<float> vertices;
 	Material* mMaterial;
+	Model wallModel;
+	Model groundModel;
+
 };
 
