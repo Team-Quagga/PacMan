@@ -1,5 +1,5 @@
 #include "World.h"
-
+#include <glm\glm.hpp>
 
 World::World(void)
 {
@@ -9,7 +9,6 @@ World::World(void)
 World::~World(void)
 {
 }
-
 
 bool World::LoadMap(const char* path)
 {
