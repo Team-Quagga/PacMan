@@ -25,7 +25,7 @@ void Viewport::BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, 
 
 using namespace glm;
 
-void Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
+glm::quat Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
 	vec3 YAXIS(0, 1, 0);
 	vec3 XAXIS(1, 0, 0);
 	
@@ -44,6 +44,8 @@ void Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
 	viewMatrix[3][0] = -dot(m_xAxis, _translation);
 	viewMatrix[3][1] = -dot(m_yAxis, _translation);
 	viewMatrix[3][2] = -dot(m_zAxis, _translation);
+
+	return orientation;
 }
 
 void Viewport::SetRenderTarget() {

@@ -5,7 +5,10 @@
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
 World::World(void)
 {

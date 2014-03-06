@@ -1,6 +1,5 @@
 #include "Model.h"
 
-
 Model::Model(void) {}
 
 
@@ -182,7 +181,7 @@ void Model::LoadFromFile(const char* path, float scale)
 			current_material = FindMaterial(matName);
 		}
 		if (strcmp(lineHeader, "Kd") == 0) {
-			glm::color color;
+			glm::color color(1, 0, 0);
 			fscanf(obj, "%f %f %f\n", &color.x, &color.y, &color.z);
 
 			current_material->SetDiffuseColor(color);

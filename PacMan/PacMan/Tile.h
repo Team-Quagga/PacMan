@@ -1,6 +1,11 @@
 #pragma once
+<<<<<<< HEAD
 #include "Candy.h"
 
+=======
+//#include "IGhost.h"
+#include "Candy.h"
+>>>>>>> origin/master
 class IGhost;
 class Tile
 {
