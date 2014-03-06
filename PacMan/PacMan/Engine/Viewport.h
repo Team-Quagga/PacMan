@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Helper.h"
 #include <glm\glm.hpp>
 #include <glm\gtx\quaternion.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -14,7 +15,7 @@ public:
 	Viewport(float _x, float _y, float _w, float _h);
 	~Viewport();
 
-	void BuildViewMatrix(glm::vec3 _euler, glm::vec3 _translation);
+	glm::quat BuildViewMatrix(glm::vec3 _euler, glm::vec3 _translation);
 	void BuildProjectionMatrix(float _field_of_view, float _aspect_ratio, float _near, float _far);
 
 	glm::mat4* GetViewMatrix() { return &viewMatrix; }

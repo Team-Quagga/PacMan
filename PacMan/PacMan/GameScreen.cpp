@@ -6,15 +6,13 @@
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	:IScreen(manager, window)//mAEngine(nullptr),mASource("WAVE/sound.wav", glm::vec3(1,1,1))
 {
-	//=============================
-	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
-	//Model model = *Engine::LoadModel("../../../content/blender_sphere.obj", 0.1);
-	int witdh, height;
-	glfwGetWindowSize(window, &witdh, &height);// sätt i engine
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);// sätt i engine
+	glfwSetCursorPos(mWindow, width / 2, height / 2);
 
-	mCamera = new Camera(new Viewport(0,0, witdh, height));
+	mCamera = new Camera(new Viewport(0,0, width, height));
 		Viewport* viewport = mCamera->GetViewport();
-		viewport->BuildProjectionMatrix(60.0f, (float)witdh / (float)height, 0.1f, 250.0f);
+		viewport->BuildProjectionMatrix(60.0f, (float)width / (float)height, 0.1f, 250.0f);
 
 		
 	mCamera->SetOrientation(0, 0.1);
@@ -24,14 +22,17 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	{
 		if(key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(w, true);
-		if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-			play = true;
+	// Soundtest
+		//if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+		//	play = true;
 	};
 	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
 	mAEngine = new AudioEngine(mCamera);
-	mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
+	// Soundtest
+	//mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
 	
 	mAEngine->Update();
+	LoadWorld("bilder/map1.bmp");
 }
 
 
@@ -66,44 +67,20 @@ void GameScreen::Update()
 
 
 	// Compute new orientation
-	horizontalAngle -= (oxpos-xpos)*0.001;//float(1024/2 - xpos );
-	verticalAngle   -= (oypos-ypos)*0.001;//float( 768/2 - ypos );
+	horizontalAngle -= (oxpos-xpos)*0.1;//float(1024/2 - xpos );
+	verticalAngle   -= (oypos-ypos)*0.1;//float( 768/2 - ypos );
 
 
-	
+	mCamera->Update();
 	// Reset mouse position for next frame
 	glfwSetCursorPos(mWindow, 1280/2, 720/2);
-	/*if(verticalAngle >= 3.14/2) verticalAngle = 3.14/2;
-	if(verticalAngle <= -3.14/2) verticalAngle = -3.14/2;
+	if (verticalAngle > 15.0 / 2) verticalAngle = 15.0 / 2;
+	if (verticalAngle < -15.0 / 2) verticalAngle = -15.0 / 2;
 
-	if(horizontalAngle < 0) horizontalAngle += 3.14;
-	if(horizontalAngle > 3.14) horizontalAngle -= 3.14;*/
-
-	// Direction : Spherical coordinates to Cartesian coordinates conversion
-	glm::vec3 direction(
-		cos(verticalAngle) * sin(horizontalAngle), 
-		sin(verticalAngle),
-		cos(verticalAngle) * cos(horizontalAngle)
-	);
-
-	direction = glm::normalize(direction);
+	glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
+	glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;
+	glm::vec3 position = mCamera->position;
 	
-	// Right vector
-	glm::vec3 right = glm::vec3(
-		sin(horizontalAngle - 3.14f/2.0f), 
-		0,
-		cos(horizontalAngle - 3.14f/2.0f)
-	);
-	
-	// Up vector
-	glm::vec3 up = glm::cross(right, direction);
-
-	// Forward vector
-	glm::vec3 forward(direction.x, 0, direction.z);
-	forward = glm::vec3(forward.x/forward.length(), 0, forward.z/forward.length());
-	glm::vec3 position = mCamera->position;// get funktion
-
-
 	// Move forward
 	if (glfwGetKey(mWindow,  GLFW_KEY_W ) == GLFW_PRESS)
 	{
@@ -117,29 +94,29 @@ void GameScreen::Update()
 	// Strafe right
 	if (glfwGetKey(mWindow,  GLFW_KEY_A ) == GLFW_PRESS)
 	{
-		position += right * deltaTime;
+		position -= strafe * deltaTime;
 	}
 	// Strafe left
 	if (glfwGetKey(mWindow,  GLFW_KEY_D ) == GLFW_PRESS)
 	{
-		position -= right * deltaTime;
+		position += strafe * deltaTime;
 	}
 
-	mCamera->SetOrientation(verticalAngle,horizontalAngle);
 	mCamera->SetPosition(position);
-
-	//printf("V - %f --- H -%f\n", verticalAngle, horizontalAngle);
-	
+	mCamera->SetOrientation(verticalAngle, horizontalAngle);
+	//mCamera->LookAt(glm::vec3(0, 0, 0)); Not working yet
+		
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;
 
 	mCamera->Update();
 	mAEngine->Update();
-	if(play) 
-	{
-		mASource->Play();
-		play = false;
-	}
+	// Soundtest
+	//if(play) 
+	//{
+	//	mASource->Play();
+	//	play = false;
+	//}
 }
 
 

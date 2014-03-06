@@ -3,15 +3,16 @@
 
 class Camera {
 public:
+	glm::vec3 rotation;
 	glm::quat orientation;
 	glm::vec3 position;
-	float pitch, yaw;
 
 	Camera();
 	Camera(Viewport*);
 
 	void Update();
 	void SetOrientation(float pitch, float yaw);
+	void LookAt(glm::vec3 _world_pos);
 	void SetPosition(glm::vec3 _pos);
 
 	glm::mat4* GetViewMatrix() { return viewport->GetViewMatrix(); }

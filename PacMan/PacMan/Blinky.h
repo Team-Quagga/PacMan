@@ -1,6 +1,7 @@
+#pragma once
 #include "IGhost.h"
 
-class Blinky:IGhost
+class Blinky:public IGhost
 {
 public:
 	void GetTargetTile(vec2 pacmanTile);

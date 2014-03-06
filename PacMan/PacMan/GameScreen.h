@@ -15,7 +15,8 @@ class GameScreen: public IScreen
 	Camera* mCamera;
 	Model mModel;
 	AudioEngine* mAEngine;
-	AudioSource* mASource;
+	// Soundtest
+	//AudioSource* mASource;
 	bool play;
 public:
 	GameScreen(ScreenManager* manager, GLFWwindow* window);
