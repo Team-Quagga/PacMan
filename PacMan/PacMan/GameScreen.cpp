@@ -1,7 +1,10 @@
 #include "GameScreen.h"
+#include <cstdio>
+#include <stdio.h>
+#include <iostream>
 
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
-	:IScreen(manager, window)
+	:IScreen(manager, window)//mAEngine(nullptr),mASource("WAVE/sound.wav", glm::vec3(1,1,1))
 {
 	//=============================
 	//Graphics* graphics = Engine::GetGraphics(); //TODO: Fix link error that appear for some reason..
@@ -15,14 +18,20 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 
 		
 	mCamera->SetOrientation(0, 0.1);
-	mCamera->SetPosition(glm::vec3(0.0, 0.1, 0.5));
-
+	mCamera->SetPosition(glm::vec3(0.0, 0.0, 0.0));
+	play = false;
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
 		if(key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(w, true);
+		if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+			play = true;
 	};
 	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	mAEngine = new AudioEngine(mCamera);
+	mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
+	
+	mAEngine->Update();
 }
 
 
@@ -119,12 +128,18 @@ void GameScreen::Update()
 	mCamera->SetOrientation(verticalAngle,horizontalAngle);
 	mCamera->SetPosition(position);
 
-	printf("V - %f --- H -%f\n", verticalAngle, horizontalAngle);
+	//printf("V - %f --- H -%f\n", verticalAngle, horizontalAngle);
 	
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;
 
 	mCamera->Update();
+	mAEngine->Update();
+	if(play) 
+	{
+		mASource->Play();
+		play = false;
+	}
 }
 
 

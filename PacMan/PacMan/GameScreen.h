@@ -5,6 +5,8 @@
 #include "Engine\Camera.h"
 #include "Model.h"
 #include "Engine\Engine.h"
+#include "AudioSource.h"
+#include "AudioEngine.h"
 
 class GameScreen: public IScreen
 {
@@ -12,6 +14,9 @@ class GameScreen: public IScreen
 	Player mPlayer;
 	Camera* mCamera;
 	Model mModel;
+	AudioEngine* mAEngine;
+	AudioSource* mASource;
+	bool play;
 public:
 	GameScreen(ScreenManager* manager, GLFWwindow* window);
 	~GameScreen(void);
