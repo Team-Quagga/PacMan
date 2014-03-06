@@ -1,5 +1,10 @@
 #include "Blinky.h"
 
+Blinky::Blinky()
+{
+	scatterTile = vec2(1, 1);
+}
+
 void Blinky::GetTargetTile(vec2 pacmanTile)
 {
 	if (state == Scatter)
@@ -16,7 +21,7 @@ void Blinky::Update(vec2 pacmanTile)
 {
 	if (state == StandingInHouse)
 	{
-		if (time < 3000)
+		if (time < 1000)
 		{
 			return;
 		}
@@ -29,7 +34,7 @@ void Blinky::Update(vec2 pacmanTile)
 	}
 	else if (state == Scatter)
 	{
-		if (mPosition.x == scatterTile.x * 10 + 5 && mPosition.y == scatterTile.y * 10 + 5)
+		if (mPosition.x == scatterTile.x * 10 + 5 && mPosition.z == scatterTile.y * 10 + 5)
 		{
 			state = Chase;
 			time = 0;

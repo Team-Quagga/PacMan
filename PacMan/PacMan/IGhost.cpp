@@ -8,6 +8,11 @@ void IGhost::Init(vec3 position)
 	state = StandingInHouse;
 }
 
+//vec2 IGhost::GetPosition()
+//{
+//	return currentTile;
+//}
+
 void IGhost::SuperCandy()
 {
 	state = Frightened;

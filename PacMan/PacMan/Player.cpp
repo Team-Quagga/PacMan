@@ -12,6 +12,10 @@ Player::Player(glm::vec2 position)
 	mKeyPress = nullptr;
 }
 
+glm::vec2 Player::GetDirection()
+{
+	return mDirection;
+}
 
 Player::~Player(void)
 {
