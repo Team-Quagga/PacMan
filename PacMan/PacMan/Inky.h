@@ -1,3 +1,4 @@
+#pragma once
 #include "IGhost.h"
 
 class Inky:public IGhost

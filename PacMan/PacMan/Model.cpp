@@ -71,7 +71,7 @@ void Model::LoadFromFile(const char* path, float scale)
 			fscanf(obj, "%s\n", matName);
 
 			//Material switch
-			current = new Batch(new Material(matName, "../../content/default_material.vs", "../../content/default_material.ps", NULL));
+			current = new Batch(new Material(matName, "../../content/default_material.vs", "../../content/default_material.ps", NULL, NULL));
 			current->vertexBuffer = vertexBuffer;
 			batches.push_back(current);
 		}

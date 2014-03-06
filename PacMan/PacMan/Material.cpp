@@ -4,8 +4,9 @@
 
 Material::Material(void) {}
 
-Material::Material(const char* _name, const char* _vs, const char* _ps, const char* _gs) : name(_name)
+Material::Material(const char* _name, const char* _vs, const char* _ps, const char* _gs, const char* _tex) : name(_name)
 {
+	tex = _tex;
 	const char* vertexShaderBuffer = Engine::ReadFile(_vs);
 	const char* fragmentShaderBuffer = Engine::ReadFile(_ps);
 
@@ -86,6 +87,12 @@ void Material::SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, 
 
 	loc = glGetUniformLocation(shaderProgram, "projectionMatrix");
 	glUniformMatrix4fv(loc, 1, false, &(*_projMatrix)[0][0]);
+
+	if(tex != NULL)
+	{
+		loc = glGetUniformLocation(shaderProgram, "tex");
+		glUniform1f(loc, 1);
+	}
 }
 
 void Material::SetDiffuseColor(glm::color _color) {

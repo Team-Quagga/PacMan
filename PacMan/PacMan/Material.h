@@ -12,7 +12,7 @@ namespace glm {
 class Material
 {
 public:
-	Material(const char* _name, const char* _vs, const char* _ps, const char* _gs);
+	Material(const char* _name, const char* _vs, const char* _ps, const char* _gs,const char* _tex);
 	~Material(void);
 
 	void Load();
@@ -25,7 +25,7 @@ private:
 	Material(void);
 	const char* name;
 	glm::color diffuseColor;
-
+	const char* tex;
 	GLuint vertexShader;
 	GLuint geometryShader;
 	GLuint fragmentShader;

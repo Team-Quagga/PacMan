@@ -1,6 +1,7 @@
 #pragma once
-#include "IGhost.h"
 #include "Candy.h"
+
+class IGhost;
 class Tile
 {
 	bool mWall;

@@ -1,3 +1,4 @@
+#pragma once
 #include "IGhost.h"
 
 class Pinky:public IGhost

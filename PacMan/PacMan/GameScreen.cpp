@@ -36,6 +36,7 @@ void GameScreen::Draw()
 {
 	glEnable(GL_DEPTH_TEST);
 	mModel.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
 	glDisable(GL_DEPTH_TEST);
 }
 

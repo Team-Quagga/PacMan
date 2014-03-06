@@ -1,6 +1,11 @@
 #include <gl\glew.h>
 #include "World.h"
 #include <glm\glm.hpp>
+#include "Blinky.h"
+#include "Clyde.h"
+#include "Inky.h"
+#include "Pinky.h"
+
 
 World::World(void)
 {
@@ -9,6 +14,7 @@ World::World(void)
 
 World::~World(void)
 {
+
 }
 
 bool World::LoadMap(const char* path)
@@ -72,7 +78,66 @@ bool World::LoadMap(const char* path)
 				printf("Kartan är ogiltig");
 		}
 	}
+
+	CreateMapBuffer();
 	return false;
+}
+void World::CreateMapBuffer()
+{
+	for (int y = 0; y < 20; y++)
+	{
+		for (int x = 0; x < 20; x++)
+		{
+			vertices.push_back(x*10);
+			vertices.push_back(0);
+			vertices.push_back(y*10);
+			vertices.push_back(1);
+			vertices.push_back(1);
+			vertices.push_back(1);
+			vertices.push_back(x/20);
+			vertices.push_back(y/20);
+			vertices.push_back(0);
+			vertices.push_back(1);
+			vertices.push_back(0);
+		}
+	}
+
+	glGenBuffers(1, &vertexBuffer); //Generate one vertex object
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
+
+	mBatch = new Batch(new Material("None", "../../content/default_material.vs", "../../content/default_material.ps", NULL, NULL));
+
+	mBatch->vertexBuffer = vertexBuffer;
+
+	// Indexing
+	std::vector<unsigned int> indices;
+
+	int i = 0;
+    for (int row=0; row<19; row++) 
+	{
+        if ( (row&1)==0 ) 
+		{ // even rows
+            for (int col=0; col<19; col++) 
+			{
+                indices.push_back(col + row * 19);
+                indices.push_back(col + (row+1) * 19);
+            }
+        } else 
+		{ // odd rows
+            for (int col=19; col>0; col--) 
+			{
+                indices.push_back(col + (row+1) * 19);
+                indices.push_back(col - 1 + + row * 19);
+            }
+        }
+    }
+	for (int i = 0; i < indices.size(); i++)
+	{
+		mBatch->elements.push_back(indices[i]);
+	}
+
+	mBatch->Load();
 }
 Tile* World::GetTile(int x, int y)
 {
@@ -80,6 +145,7 @@ Tile* World::GetTile(int x, int y)
 }
 void World::Draw(glm::mat4 view, glm::mat4 projection)
 {
+	mBatch->Draw(&glm::mat4(1), &view, &projection);
 }
 
 GLuint World::LoadBMP(const char * imagepath)
@@ -95,7 +161,7 @@ GLuint World::LoadBMP(const char * imagepath)
         unsigned char* data;
 
         // Open the file
-        FILE * file = fopen(imagepath,"rb");
+        FILE* file = fopen(imagepath,"rb");
         if (!file)                                                          
 		{printf("%s could not be opened. Are you in the right directory ? Don't forget to read the FAQ !\n", imagepath); getchar(); return 0;}
 
