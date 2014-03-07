@@ -35,6 +35,10 @@ bool World::LoadMap(const char* path)
 	groundModel.LoadFromFile("../../content/plane.obj", 0.5);
 	groundModel.Load();
 
+	// Load candy
+	candyModel.LoadFromFile("../../content/candy.obj", 0.5);
+	candyModel.Load();
+
 	int ghostCounter = 0;
 	for (int y = 0; y < 20 ; y++)
 	{
@@ -42,67 +46,73 @@ bool World::LoadMap(const char* path)
 		{
 			if(colorData[x][y].b == 255 && colorData[x][y].g == 255 && colorData[x][y].r == 255)
 			{
-				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
+				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, &wallModel);
+				printf(" ");
 			}
-			if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
+			else if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
 			{
 				map[x][y] = Tile(true, NULL, NULL, x*0.5, y*0.5, &wallModel);
+				printf("H");
 			}
 			else if(colorData[x][y].b == 255)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
-				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
+				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, &wallModel);
+				printf("C");
 			}
 			else if(colorData[x][y].g == 255)
 			{
-				/*Candy candy = Candy(x*y);
-				candy.Init(glm::vec3(x * 10 + 5, 5, y * 10 + 5));*/
-				map[x][y] = Tile(false, NULL, NULL, x*10, y*10, &wallModel);
+				Candy candy = Candy(x*y);
+				////candy.Init(glm::vec3(x * 0.5 + 5, 5, y * 0.5 + 5));
+				map[x][y] = Tile(false, &candy, NULL, x*0.5, y*0.5, &wallModel);
+				map[x][y].AddCandyModel(&candyModel);
+				//printf(".");
 			}
 			else if(colorData[x][y].r == 255)
 			{
+				printf("G");
 				switch(ghostCounter)
 				{
 				case 0:
-					map[x][y] = Tile(false,NULL,&blinky, x*10, y*10, &wallModel);
+					map[x][y] = Tile(false,NULL,&blinky, x*0.5, y*0.5, &wallModel);
 					ghostCounter++;
 					break;
 				case 1:
-					map[x][y] = Tile(false,NULL,&clyde, x*10, y*10, &wallModel);
+					map[x][y] = Tile(false,NULL,&clyde, x*0.5, y*0.5, &wallModel);
 					ghostCounter++;
 					break;
 				case 2:
-					map[x][y] = Tile(false,NULL,&inky, x*10, y*10, &wallModel);
+					map[x][y] = Tile(false,NULL,&inky, x*0.5, y*0.5, &wallModel);
 					ghostCounter++;
 					break;
 				case 3:
-					map[x][y] = Tile(false,NULL,&pinky, x*10, y*10, &wallModel);
+					map[x][y] = Tile(false,NULL,&pinky, x*0.5, y*0.5, &wallModel);
 					ghostCounter++;
 					break;
 				}
 			}
 			else
 				printf("Kartan är ogiltig");
+
 		}
+		printf("\n");
 	}
 
-	CreateMapBuffer();
+	for (int y = 0; y < 20 ; y++)
+	{
+		for (int x = 0; x < 20 ; x++)
+		{
+			if(map[x][y].mCandy != NULL)
+				printf("H");
+			else
+				printf(" ");
+		}
+		printf("\n");
+	}
 	return false;
 }
-void World::CreateMapBuffer()
-{
-	for (int y = 0; y < 20; y++)
-	{
-		for (int x = 0; x < 20; x++)
-		{
-			
-		}
-	}
 
-	
-	
-}
 Tile* World::GetTile(int x, int y)
 {
 	return nullptr;
@@ -119,6 +129,7 @@ void World::Draw(glm::mat4 view, glm::mat4 projection)
 	}
 
 	groundModel.Draw(&glm::mat4(1), &view, &projection);
+	
 }
 
 GLuint World::LoadBMP(const char * imagepath)

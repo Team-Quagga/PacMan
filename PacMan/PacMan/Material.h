@@ -16,6 +16,7 @@ public:
 	~Material(void);
 
 	void Load();
+	void Unload();
 	const char* GetName() { return name; }
 	void SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
 	void SetDiffuseColor(glm::color _color);

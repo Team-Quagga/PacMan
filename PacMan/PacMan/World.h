@@ -27,6 +27,6 @@ public:
 	Material* mMaterial;
 	Model wallModel;
 	Model groundModel;
-
+	Model candyModel;
 };
 

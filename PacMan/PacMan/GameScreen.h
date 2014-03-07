@@ -11,7 +11,7 @@ class GameScreen: public IScreen
 	World mWorld;
 	Player mPlayer;
 	Camera* mCamera;
-	Model mModel;
+	Model mModel,mModel1;
 public:
 	GameScreen(ScreenManager* manager, GLFWwindow* window);
 	~GameScreen(void);

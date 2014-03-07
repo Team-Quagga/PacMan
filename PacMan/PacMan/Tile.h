@@ -6,8 +6,8 @@
 class IGhost;
 class Tile
 {
-	bool mWall;
-	Candy* mCandy;
+	
+	
 	IGhost* mGhost;
 	Model* model;
 	Model* candyModel;
@@ -19,5 +19,7 @@ public:
 	void Draw(glm::mat4 view, glm::mat4 projection);
 	bool GetWalkable();
 	void AddCandyModel(Model* _candyModel);
+	bool mWall;
+	Candy* mCandy;
 };
 

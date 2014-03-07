@@ -76,8 +76,25 @@ void Material::Load() {
 	printf(" \t - MAT [%s] load complete \n", name);
 }
 
+void Material::Unload()
+{
+	GLint posAttrib = glGetAttribLocation(shaderProgram, "inputPosition");
+	glDisableVertexAttribArray(posAttrib);
+
+	GLint colAttrib = glGetAttribLocation(shaderProgram, "inputColor");
+	glDisableVertexAttribArray(colAttrib);
+
+	GLint texAttrib = glGetAttribLocation(shaderProgram, "texCoord");
+	glDisableVertexAttribArray(texAttrib);
+
+	GLint normAttrib = glGetAttribLocation(shaderProgram, "inputNormal");
+	glDisableVertexAttribArray(normAttrib);
+}
+
 void Material::SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix) {
 	GLuint loc;
+
+	//Load();//TESTFIX
 
 	loc = glGetUniformLocation(shaderProgram, "worldMatrix");
 	glUniformMatrix4fv(loc, 1, false, &(*_worldMatrix)[0][0]);

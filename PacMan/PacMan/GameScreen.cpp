@@ -20,7 +20,8 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 		if(key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(w, true);
 	};
-	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	//mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	//mModel1 = *Engine::LoadModel("../../content/cube.obj", 0.5);
 	LoadWorld("bilder/map1.bmp");
 }
 
@@ -33,7 +34,19 @@ GameScreen::~GameScreen(void)
 void GameScreen::Draw()
 {
 	glEnable(GL_DEPTH_TEST);
-	mModel.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+
+	glm::mat4 transformM = glm::mat4(1);
+	transformM[3][0] = 1;
+	transformM[3][1] = 0;
+
+	glm::mat4 transformM2 = glm::mat4(1);
+	transformM2[3][0] = -5;
+	transformM2[3][1] = 0;
+	
+	//mModel1.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+	//mModel.Draw(&transformM, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+	
+	//mModel.Draw(&transformM2, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
 	glDisable(GL_DEPTH_TEST);
 }
@@ -64,8 +77,8 @@ void GameScreen::Update()
 	mCamera->Update();
 	// Reset mouse position for next frame
 	glfwSetCursorPos(mWindow, 1280/2, 720/2);
-	if (verticalAngle > 15.0 / 2) verticalAngle = 15.0 / 2;
-	if (verticalAngle < -15.0 / 2) verticalAngle = -15.0 / 2;
+	if (verticalAngle > 89.0) verticalAngle = 89;
+	if (verticalAngle < -89) verticalAngle = -89;
 
 	glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
 	glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;

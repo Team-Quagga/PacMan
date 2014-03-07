@@ -5,11 +5,8 @@ Candy::Candy(int seed)
 	superCandy = false;
 	srand(seed);
 	int candyValue = rand() % 100;
-	printf(""+candyValue);
 	if (candyValue < 3)
 		superCandy = true;
-	if(superCandy) mModel = *Engine::LoadModel("super.obj", 1);
-	else mModel = *Engine::LoadModel("candy.obj", 1);
 }
 
 
