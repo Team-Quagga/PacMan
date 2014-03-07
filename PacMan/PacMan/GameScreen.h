@@ -5,13 +5,17 @@
 #include "Engine\Camera.h"
 #include "Model.h"
 #include "Engine\Engine.h"
+#include "AudioSource.h"
+#include "AudioEngine.h"
 
 class GameScreen: public IScreen
 {
 	World mWorld;
 	Player mPlayer;
 	Camera* mCamera;
-	Model mModel,mModel1;
+	AudioEngine* mAEngine;
+	// Soundtest
+	//AudioSource* mASource;
 public:
 	GameScreen(ScreenManager* manager, GLFWwindow* window);
 	~GameScreen(void);

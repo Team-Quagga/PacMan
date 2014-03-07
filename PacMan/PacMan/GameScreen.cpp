@@ -1,7 +1,10 @@
 #include "GameScreen.h"
+#include <cstdio>
+#include <stdio.h>
+#include <iostream>
 
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
-	:IScreen(manager, window)
+	:IScreen(manager, window)//mAEngine(nullptr),mASource("WAVE/sound.wav", glm::vec3(1,1,1))
 {
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);// sätt i engine
@@ -13,15 +16,19 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 
 		
 	mCamera->SetOrientation(0, 0.1);
-	mCamera->SetPosition(glm::vec3(0.0, 0.1, 0.5));
-
+	mCamera->SetPosition(glm::vec3(0.0, 0.0, 0.0));
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
 		if(key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(w, true);
+	// Soundtest
+		//if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+		//	play = true;
 	};
-	//mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
-	//mModel1 = *Engine::LoadModel("../../content/cube.obj", 0.5);
+	mAEngine = new AudioEngine(mCamera);
+	// Soundtest
+	//mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
+	mAEngine->Update();
 	LoadWorld("bilder/map1.bmp");
 }
 
@@ -108,12 +115,18 @@ void GameScreen::Update()
 	mCamera->SetPosition(position);
 	mCamera->SetOrientation(verticalAngle, horizontalAngle);
 	//mCamera->LookAt(glm::vec3(0, 0, 0)); Not working yet
-
-	
+		
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;
 
 	mCamera->Update();
+	mAEngine->Update();
+	// Soundtest
+	//if(play) 
+	//{
+	//	mASource->Play();
+	//	play = false;
+	//}
 }
 
 

@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\glm;..\GLFW\include;..\Glew\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\GLFW\lib-msvc110;..\Glew\lib\Releas\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\openal-soft-1.15.1\include;..\glm;..\GLFW\include;..\Glew\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\openal-soft-1.15.1\bin\Debug;..\GLFW\lib-msvc110;..\Glew\lib\Releas\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib;opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,6 +79,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioEngine.cpp" />
+    <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="Batch.cpp" />
     <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="Candy.cpp" />
@@ -102,6 +104,8 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioEngine.h" />
+    <ClInclude Include="AudioSource.h" />
     <ClInclude Include="Batch.h" />
     <ClInclude Include="Blinky.h" />
     <ClInclude Include="Candy.h" />
