@@ -11,7 +11,7 @@
 class GameScreen: public IScreen
 {
 	World mWorld;
-	Player mPlayer;
+	Player* mPlayer;
 	Camera* mCamera;
 	Model mModel;
 	AudioEngine* mAEngine;

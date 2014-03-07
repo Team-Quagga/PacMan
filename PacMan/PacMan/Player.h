@@ -1,18 +1,24 @@
 #pragma once
 #include "engine\input.h"
+#include "Engine\Camera.h"
 #include <glm\glm.hpp>
 class Player :
 	public KeyObserver
 {
 	//KeyPressFun mKeyPress;
+	Camera* mCamera;
 	glm::vec2 mPosition;
-public:
 	glm::vec2 mDirection;
-	Player(void);
-	Player(glm::vec2 position);
+	bool invert;
+public:
+	Player();
+	Player(Camera* camera, glm::vec2 position);
 	~Player(void);
+	void Update(GLFWwindow* mWindow);
 	void SetKeyFunction(KeyPressFun f);
 	glm::vec2 GetPosition();
-	void SetPosition(glm::vec2 nPosition);
+	glm::vec2 GetDirection();
+	void SetPosition(glm::vec2 position);
+	void SetDirection(glm::vec2 direction);
 };
 

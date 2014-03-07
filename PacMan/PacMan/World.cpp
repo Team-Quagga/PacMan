@@ -73,10 +73,13 @@ bool World::LoadMap(const char* path)
 				}
 			}
 			else
+			{
 				printf("Kartan är ogiltig");
+				return false;
+			}
 		}
 	}
-	return false;
+	return true;
 }
 Tile* World::GetTile(int x, int y)
 {
