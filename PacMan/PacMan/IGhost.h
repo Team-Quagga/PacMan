@@ -4,6 +4,7 @@
 
 enum GhostStates
 {
+	StandingInHouse,
 	Chase,
 	Frightened,
 	Scatter
@@ -18,7 +19,8 @@ public:
 	void ChoseDirection();
 	void Move();
 	void Update();
-
+	void SuperCandy();
+	vec2 GetPosition();
 	void GetTargetTile(vec2, vec2, vec2);
 protected:
 	bool active;
@@ -27,6 +29,8 @@ protected:
 	vec2 targetTile;
 	vec2 nextTile; //New
 	vec2 currentTile; //New
+	int time; //New
 private:
 	void TestTiles(vec2 preferedTile); //New
+	int lastTime; //New
 };

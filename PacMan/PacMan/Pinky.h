@@ -4,5 +4,7 @@
 class Pinky:public IGhost
 {
 public:
-	void GetTargetTile(vec2 pacmanTile, vec2 pacmanDirection);
+	Pinky();
+	void GetTargetTile(vec2, vec2);
+	void Update(vec2, vec2);
 };
