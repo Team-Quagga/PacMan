@@ -5,7 +5,7 @@ in vec3 inputColor;
 in vec2 texCoord;
 in vec3 inputNormal;
 
-vec3 LightPos = vec3(0.0, 0.2, 0.0);
+vec3 LightPos = vec3(5, 3, 5);
 
 out vec3 color;
 out vec2 texcoord;
@@ -21,7 +21,6 @@ uniform mat4 projectionMatrix;
 
 void main(void)
 {
-	//gl_Position = projectionMatrix * viewMatrix * worldMatrix * vec4(inputPosition, 1.0);
 	gl_Position = projectionMatrix * viewMatrix * worldMatrix * vec4(inputPosition, 1.0);
 
 	color = inputColor;

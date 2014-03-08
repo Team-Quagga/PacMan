@@ -113,7 +113,7 @@ void Material::SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, 
 }
 
 void Material::SetDiffuseColor(glm::color _color) {
-	//diffuseColor = _color;
+	diffuseColor = _color;
 }
 
 Material::~Material(void)

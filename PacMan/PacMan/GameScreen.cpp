@@ -20,7 +20,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 		if(key == GLFW_KEY_ESCAPE)
 			glfwSetWindowShouldClose(w, true);
 	};
-	//mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
+	mModel = *Engine::LoadModel("../../content/blender_suzanne.obj", 0.1);
 	//mModel1 = *Engine::LoadModel("../../content/cube.obj", 0.5);
 	LoadWorld("bilder/map1.bmp");
 }
@@ -46,7 +46,7 @@ void GameScreen::Draw()
 	//mModel1.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	//mModel.Draw(&transformM, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	
-	//mModel.Draw(&transformM2, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+	mModel.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
 	glDisable(GL_DEPTH_TEST);
 }

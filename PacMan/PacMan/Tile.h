@@ -14,7 +14,7 @@ class Tile
 	glm::mat4 transformMatrix;
 public:
 	Tile(void){};
-	Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, Model* _model);
+	Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, float z, Model* _model);
 	~Tile(void);
 	void Draw(glm::mat4 view, glm::mat4 projection);
 	bool GetWalkable();

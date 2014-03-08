@@ -1,7 +1,7 @@
 #include "Tile.h"
 
 
-Tile::Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, Model* _model)
+Tile::Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, float z, Model* _model)
 {
 	mWall = wall;
 	mCandy = candy;
@@ -16,6 +16,7 @@ Tile::Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, Model* _mod
 	transformMatrix = glm::mat4(1);
 	transformMatrix[3][0] = x;
 	transformMatrix[3][2] = y;
+	transformMatrix[3][1] = z;
 }
 
 void Tile::AddCandyModel(Model* _candyModel)

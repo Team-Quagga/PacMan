@@ -9,6 +9,8 @@ class Sprite: public Rect
 		bool InterSect(Rect& r)(float x, float y);
 		*/
 public:
+	GLuint mTextureId;
+	/*
 	enum FileFormat
 	{
 		TGA_TEXTURE,
@@ -23,8 +25,6 @@ public:
 		RGBA_COLOR = GL_RGBA,
 		BGRA_COLOR = GL_BGRA
 	};
-//private:
-	GLuint mTextureId;
 	struct TexInfo
 	{
 		unsigned char imageTypeCode;
@@ -34,13 +34,14 @@ public:
 		unsigned char *imageData;
 		ColorFormat imageColorType;
 	} info;
+	*/
 	struct TexCoords
 	{
 		float a[2], b[2], c[2], d[2];
 	} coords;
 
-	bool LoadBMP(char * imagepath);
-	bool LoadTGA(char *filename);
+	//bool LoadBMP(char * imagepath);
+	//bool LoadTGA(char *filename);
 public:
 	
 	Sprite()
@@ -58,7 +59,7 @@ public:
 	{
 	}
 
-	bool LoadImange(char* filePath, FileFormat format);
+	//bool LoadImange(char* filePath, FileFormat format);
 	void SetTexCoords(float a[2], float b[2], float c[2], float d[2]);
 	void Draw();//probably more params later
 	void GenerateTexture();
@@ -95,13 +96,13 @@ inline void Sprite::Draw()
 	glLoadIdentity();
 	//glColor3f(0, 0, 0.0);
 	glBegin(GL_TRIANGLE_STRIP);
-	glTexCoord2f(coords.a[0], coords.a[1]);
+	glTexCoord2f(coords.a[0], 1-coords.a[1]);
 	glVertex3f(x, y + height, -1);// up-left
-	glTexCoord2f(coords.b[0], coords.b[1]);
+	glTexCoord2f(coords.b[0], 1 - coords.b[1]);
 	glVertex3f(x, y, -1);// down-left
-	glTexCoord2f(coords.c[0], coords.c[1]);
+	glTexCoord2f(coords.c[0], 1 - coords.c[1]);
 	glVertex3f(x + width, y + height, -1);// up-right
-	glTexCoord2f(coords.d[0], coords.d[1]);
+	glTexCoord2f(coords.d[0], 1 - coords.d[1]);
 	glVertex3f(x + width, y, -1);// down-rightS
 	glEnd();
 
@@ -119,9 +120,10 @@ inline void Sprite::BindTexture()
 	// "Bind" the newly created texture : all future texture functions will modify this texture       
 	glBindTexture(GL_TEXTURE_2D, mTextureId);
 	// Give the image to OpenGL       
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info.imageWidth, info.imageHeight, 0, info.imageColorType, GL_UNSIGNED_BYTE, info.imageData);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info.imageWidth, info.imageHeight, 0, info.imageColorType, GL_UNSIGNED_BYTE, info.imageData);
 }
 
+/*
 inline bool Sprite::LoadImange(char* filePath, Sprite::FileFormat format)
 {
 	switch (format)
@@ -137,7 +139,9 @@ inline bool Sprite::LoadImange(char* filePath, Sprite::FileFormat format)
 		break;
 	}
 }
+*/
 
+/*
 inline bool Sprite::LoadBMP(char * imagepath)
 {
 	//printf("Reading image %s\n", imagepath);
@@ -220,7 +224,9 @@ inline bool Sprite::LoadBMP(char * imagepath)
 
 	return true;
 }
+*/
 
+/*
 inline bool Sprite::LoadTGA(char *filename)
 {
 	FILE *filePtr;
@@ -281,16 +287,17 @@ inline bool Sprite::LoadTGA(char *filename)
 	fread(info.imageData, sizeof(unsigned char), imageSize, filePtr);
 
 	// Change from BGR to RGB so OpenGL can read the image data.
-	/*for (int imageIdx = 0; imageIdx < imageSize; imageIdx += colorMode)
-	{
-		colorSwap = tgaFile->imageData[imageIdx];
-		tgaFile->imageData[imageIdx] = tgaFile->imageData[imageIdx + 2];
-		tgaFile->imageData[imageIdx + 2] = colorSwap;
-	}*/
+	//for (int imageIdx = 0; imageIdx < imageSize; imageIdx += colorMode)
+	//{
+	//	colorSwap = tgaFile->imageData[imageIdx];
+	//	tgaFile->imageData[imageIdx] = tgaFile->imageData[imageIdx + 2];
+	//	tgaFile->imageData[imageIdx + 2] = colorSwap;
+	//}
 
 	fclose(filePtr);
 	return true;
 }
+/*
 
 //GLubyte *textureImage;
 //float rotateX = 0;
