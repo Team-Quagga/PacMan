@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include "World.h"
+#include <math.h>
 
 Player::Player()
 {
@@ -205,23 +206,22 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 	if(mDirection == 270)
 		prefDirection = glm::vec2(0,-1);
 
-	
+	if(direction.x > 0 || direction.y > 0)
+		tilePosition = round(glm::vec2(mPosition.x - 0.5, mPosition.y - 0.5));
+	else
+		tilePosition = round(glm::vec2(mPosition.x + 0.5, mPosition.y + 0.5));
 
-	if((direction.x != 0 && std::abs(mPosition.x - targetTile.x) < 0.5) || (direction.y !=0 && std::abs(mPosition.y - targetTile.y) < 0.5))
+	prefTile = tilePosition + prefDirection;
+
+	if(Walkable(prefTile))
 	{
-		
-		tilePosition = targetTile;
-		prefTile = tilePosition + prefDirection;
-
-		if(Walkable(prefTile))
-		{
-			targetTile = prefTile;
-		}
-		else
-			targetTile = tilePosition + direction;
-		
-		direction = targetTile - tilePosition;
+		targetTile = prefTile;
 	}
+	else if(Walkable(tilePosition + direction))
+		targetTile = tilePosition + direction;
+		
+	direction = targetTile - tilePosition;
+	
 
 	if(Walkable(targetTile))
 	{
