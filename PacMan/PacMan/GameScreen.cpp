@@ -56,12 +56,14 @@ void GameScreen::Draw()
 	
 	//mModel.Draw(&transformM2, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
+	mPlayer->Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
+
 	glDisable(GL_DEPTH_TEST);
 }
 
 void GameScreen::Update()
 {
-	mPlayer->Update(mWindow);
+	mPlayer->DebugUpdate(mWindow);
 	mAEngine->Update();
 	// Soundtest
 	//if(play) 
@@ -77,6 +79,6 @@ bool GameScreen::LoadWorld(const char* path)
 	if(!mWorld.LoadMap(path))
 		return false;
 
-	mPlayer = new Player(mCamera, glm::vec2(mWorld.mPlayerPosXY[0],mWorld.mPlayerPosXY[1]));
+	mPlayer = new Player(mCamera, glm::vec2(1,1), &mWorld);
 	Input::GetInstance()->Register(*mPlayer);
 }
