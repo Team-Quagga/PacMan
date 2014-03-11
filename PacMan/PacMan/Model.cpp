@@ -142,7 +142,7 @@ void Model::LoadFromFile(const char* path, float scale)
 				glm::vec2 uv;
 				glm::vec3 norm(0, 1, 0);
 				if (tempUvs) uv = tempUvs->at(uvIndex[i] - 1);
-				if (tempNormals) norm = tempNormals->at(uvIndex[i] - 1);
+				if (tempNormals) norm = tempNormals->at(normalIndex[i] - 1);
 
 				shared[(vertexIndex[i] - 1) * 11 + 0] = pos.x;
 				shared[(vertexIndex[i] - 1) * 11 + 1] = pos.y;
@@ -184,7 +184,7 @@ void Model::LoadFromFile(const char* path, float scale)
 			glm::color color(1, 0, 0);
 			fscanf(obj, "%f %f %f\n", &color.x, &color.y, &color.z);
 
-			current_material->SetDiffuseColor(color);
+			//current_material->SetDiffuseColor(color);
 		}
 	}
 
@@ -193,7 +193,7 @@ void Model::LoadFromFile(const char* path, float scale)
 }
 
 Material* Model::FindMaterial(const char* name) {
-	for (int c = 0; c < batches.size() - 1; c++) {
+	for (int c = 0; c < batches.size(); c++) {
 		if (strcmp(batches.at(c)->GetName(), name) == 0) {
 			return batches.at(c)->material;
 		}

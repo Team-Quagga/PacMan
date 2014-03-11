@@ -18,7 +18,8 @@ int main()
 	glfwSetKeyCallback(window, &Input::KeyCallback);
 	glfwSetMouseButtonCallback(window, &Input::MouseCallback);
 
-	GameScreen menu(&manager, window);
+	//GameScreen menu(&manager, window);
+	MenuScreen menu(&manager, window);
 	i->Register(menu);
 	manager.AddScreen(&menu);
 	manager.SetFocus(&menu);

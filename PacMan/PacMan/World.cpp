@@ -33,15 +33,15 @@ bool World::LoadMap(const char* path)
 	bool superCandy;
 
 	// Load cube
-	wallModel.LoadFromFile("../../content/cube.obj", 1);
+	wallModel.LoadFromFile("../../content/wall.obj", 0.5);
 	wallModel.Load();
 
 	// Load Ground
-	groundModel.LoadFromFile("../../content/plane.obj", 1);
+	groundModel.LoadFromFile("../../content/ground.obj", 0.5);
 	groundModel.Load();
 
 	// Load candy
-	candyModel.LoadFromFile("../../content/candy.obj", 1);
+	candyModel.LoadFromFile("../../content/cherry.obj", 0.05);
 	candyModel.Load();
 
 	int ghostCounter = 0;
@@ -51,48 +51,48 @@ bool World::LoadMap(const char* path)
 		{
 			if(colorData[x][y].b == 255 && colorData[x][y].g == 255 && colorData[x][y].r == 255)
 			{
-				map[x][y] = Tile(false, NULL, NULL, x*1, y*1, &wallModel);
-				printf(" ");
+				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
+				//printf(" ");
 			}
 			else if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
 			{
-				map[x][y] = Tile(true, NULL, NULL, x*1, y*1, &wallModel);
-				printf("H");
+				map[x][y] = Tile(true, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
+				//printf("H");
 			}
 			else if(colorData[x][y].b == 255)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
-				map[x][y] = Tile(false, NULL, NULL, x*1, y*1, &wallModel);
-				printf("C");
+				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
+				//printf("C");
 			}
 			else if(colorData[x][y].g == 255)
 			{
 				Candy candy = Candy(x*y);
 				////candy.Init(glm::vec3(x * 0.5 + 5, 5, y * 0.5 + 5));
-				map[x][y] = Tile(false, &candy, NULL, x*1, y*1, &wallModel);
+				map[x][y] = Tile(false, &candy, NULL, x*0.5, y*0.5, 0.05, &wallModel);
 				map[x][y].AddCandyModel(&candyModel);
 				//printf(".");
 			}
 			else if(colorData[x][y].r == 255)
 			{
-				printf("G");
+				//printf("G");
 				switch(ghostCounter)
 				{
 				case 0:
-					map[x][y] = Tile(false,NULL,&blinky, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false, NULL, &blinky, x*0.5, y*0.5, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 1:
-					map[x][y] = Tile(false,NULL,&clyde, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false, NULL, &clyde, x*0.5, y*0.5, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 2:
-					map[x][y] = Tile(false,NULL,&inky, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false, NULL, &inky, x*0.5, y*0.5, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 3:
-					map[x][y] = Tile(false,NULL,&pinky, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false, NULL, &pinky, x*0.5, y*0.5, 0, &wallModel);
 					ghostCounter++;
 					break;
 				}
@@ -103,9 +103,9 @@ bool World::LoadMap(const char* path)
 				return false;
 			}
 		}
-		printf("\n");
+		//printf("\n");
 	}
-
+	/*
 	for (int y = 0; y < 20 ; y++)
 	{
 		for (int x = 0; x < 20 ; x++)
@@ -117,6 +117,8 @@ bool World::LoadMap(const char* path)
 		}
 		printf("\n");
 	}
+	return true;
+	*/
 	return true;
 }
 

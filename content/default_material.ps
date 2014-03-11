@@ -21,18 +21,20 @@ void main(void)
 
 	//Per pixel lighting
 	//Normal matrix - only rotation part
-	mat3 normalMatrix = transpose(mat3(worldMatrix));
-	vec3 normal = normalize(normalMatrix * normal);
+	mat3 normalMatrix = mat3(worldMatrix);
+	vec3 normalV = normalize(normalMatrix * normal);
 
 	//Pixel position in 3D space
-	vec3 pixelPosition = vec3(worldMatrix * vec4(vertex, 1));
+	vec3 pixelPosition = vec3(worldMatrix * vec4(vertex,1));
 	vec3 surfaceToLight = light - pixelPosition; //distance from the lights source to our pixel
+	float lightDistance = length(surfaceToLight);
 
+	float intensity = max(dot(normalV, normalize(surfaceToLight)),0.0);
+	float attenuation = 1 / (0.00001 * lightDistance + 0.1 * lightDistance * lightDistance);
 
-	float intensity = dot(normal, surfaceToLight) / length(surfaceToLight);
 
 
 	//=========================
 
-	outputColor = vec4(color, 1.0) * intensity;
+	outputColor = vec4(color, 1.0) * attenuation * intensity;
 }

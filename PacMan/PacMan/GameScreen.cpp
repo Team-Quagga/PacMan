@@ -25,11 +25,11 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 		//if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 		//	play = true;
 	};
-
 	mAEngine = new AudioEngine(mCamera);
 	// Soundtest
 	//mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
 	mAEngine->Update();
+
 	LoadWorld("bilder/map1.bmp");
 }
 
@@ -54,7 +54,7 @@ void GameScreen::Draw()
 	//mModel1.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	//mModel.Draw(&transformM, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	
-	//mModel.Draw(&transformM2, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
+	//mModel.Draw(&glm::mat4(1), mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
 	mPlayer->Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
 
