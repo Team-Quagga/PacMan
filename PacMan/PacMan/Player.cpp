@@ -168,9 +168,7 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 	}
 
 	mPrevDirection = mDirection;
-	if(mPosition.x - (int)mPosition.x <= 0.2 && mPosition.y - (int)mPosition.y <= 0.2 ||
-		mPosition.x - (int)mPosition.x >= 0.8 && mPosition.y - (int)mPosition.y >= 0.8)
-	{
+
 		// Player
 		if(invert)
 		{
@@ -188,8 +186,7 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 			mDirection += 90;
 		}
 
-	}
-	std::cout<<mDirection<<std::endl;
+	//std::cout<<mDirection<<std::endl;
 
 	if(mDirection < 0)
 		mDirection += 360;
@@ -204,51 +201,30 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 		prefDirection = glm::vec2(-1,0);
 	if(mDirection == 270)
 		prefDirection = glm::vec2(0,-1);
+	std::cout<<direction.x<<","<<direction.y<<std::endl;
 
-	
-
-	if((direction.x != 0 && std::abs(mPosition.x - targetTile.x) < 0.5) || (direction.y !=0 && std::abs(mPosition.y - targetTile.y) < 0.5))
+	if(std::abs((mPosition.x - targetTile.x)) < 0.02 && std::abs((mPosition.y - targetTile.y)) < 0.02)
 	{
-		
-		tilePosition = targetTile;
-		prefTile = tilePosition + prefDirection;
-
+		mPosition = targetTile;
+		prefTile = mPosition + prefDirection;
 		if(Walkable(prefTile))
 		{
 			targetTile = prefTile;
+			direction = prefDirection;
 		}
-		else
-			targetTile = tilePosition + direction;
-		
-		direction = targetTile - tilePosition;
+		if(Walkable(mPosition + direction))
+			targetTile = mPosition + direction;
 	}
 
 	if(Walkable(targetTile))
 	{
 		mPosition = glm::vec2(mPosition.x + direction.x * 0.01, mPosition.y + direction.y * 0.01);
 	}
-
-	//if(std::abs((mPosition.x - targetTile.x)) < 0.02 && std::abs((mPosition.y - targetTile.y)) < 0.02)
-	//{
-	//	if(Walkable(prefTile))
-	//	{
-	//		targetTile = prefTile;
-	//		direction = prefDirection;
-	//	}
-
-	//	if(Walkable(mPosition + direction))
-	//		targetTile = mPosition + direction;
-	//}
-	//
-	//if(Walkable(targetTile))
-	//{
-	//	mPosition = glm::vec2(mPosition.x + direction.x * 0.01, mPosition.y + direction.y * 0.01);
-	//}
 	
 
-	/*tempTile = mWorld->GetTile(mPosition.x + (targetTile.x - mPosition.x), mPosition.y + direction.y);*/
+	/*tempTile = mWorld->GetTile(mPosition.x + (targetTile.x - mPosition.x), mPosition.y + direction.y);
 
-	/*if(tempTile->mWall)
+	if(tempTile->mWall)
 	{
 		direction = prevDirection;
 		mDirection = mPrevDirection;
