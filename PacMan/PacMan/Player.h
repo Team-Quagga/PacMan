@@ -9,10 +9,9 @@ class Player :
 	Camera* mCamera;
 	glm::vec2 mPosition;
 	glm::vec2 mDirection;
-	bool invert;
 public:
-	Player();
-	Player(Camera* camera, glm::vec2 position);
+	Player(void);
+	Player(glm::vec2 position);
 	~Player(void);
 	void Update(GLFWwindow* mWindow);
 	void SetKeyFunction(KeyPressFun f);

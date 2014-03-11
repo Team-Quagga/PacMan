@@ -4,6 +4,19 @@ void IGhost::Init(vec3 position)
 {
 	mModel = *Engine::LoadModel("ghost.obj", 1);
 	mPosition = position;
+	time = 0;
+	state = StandingInHouse;
+}
+
+//vec2 IGhost::GetPosition()
+//{
+//	return currentTile;
+//}
+
+void IGhost::SuperCandy()
+{
+	state = Frightened;
+	time = 0;
 }
 
 void IGhost::Draw()
@@ -15,7 +28,15 @@ void IGhost::Draw()
 // Choses the next tile based on which is the closest walkable tile to the target tile, also makes sure that the next tile isn't the one it came from
 void IGhost::ChoseDirection()
 {
-	vec2 direction = targetTile - currentTile;
+	vec2 direction;
+	if (state == Frightened)
+	{
+		direction = currentTile - targetTile;
+	}
+	else
+	{
+		direction = targetTile - currentTile;
+	}
 	if (abs(direction.x) > abs(direction.y))
 	{
 		if (direction.x > 0)
@@ -49,17 +70,34 @@ void IGhost::TestTiles(vec2 preferedTile)
 	}
 	else if (preferedTile.x == nextTile.x)
 	{
-		if (World::GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
+		if (targetTile.y > nextTile.y)
 		{
-			currentTile = nextTile;
-			nextTile.y--;
+			if (World::GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
+			{
+				currentTile = nextTile;
+				nextTile.y++;
+			}
+			else if (World::GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
+			{
+				currentTile = nextTile;
+				nextTile.y--;
+			}
 		}
-		else if (World::GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
+		else
 		{
-			currentTile = nextTile;
-			nextTile.y++;
+			if (World::GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
+			{
+				currentTile = nextTile;
+				nextTile.y--;
+			}
+			else if (World::GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
+			{
+				currentTile = nextTile;
+				nextTile.y++;
+			}
 		}
-		else if (currentTile.x > nextTile.x)
+		
+		if (currentTile.x > nextTile.x)
 		{
 			currentTile = nextTile;
 			nextTile.x++;
@@ -95,14 +133,27 @@ void IGhost::TestTiles(vec2 preferedTile)
 	}
 }
 
-//TODO
+//Moves the ghost towards the next tile
 void IGhost::Move()
 {
+	vec2 dir = nextTile - currentTile;
+	mPosition.x += dir.x;
+	mPosition.y += dir.y;
+}
 
+vec2 IGhost::GetPosition()
+{
+	return currentTile;
 }
 
 //TODO
 void IGhost::Update()
 {
+	time += glfwGetTime() - lastTime;
+	lastTime = glfwGetTime();
+	if (state == StandingInHouse)
+		return;
+	if (mPosition.x == nextTile.x * 10 + 5 && mPosition.y == nextTile.y * 10 + 5)
+		ChoseDirection();
 	Move();
 }

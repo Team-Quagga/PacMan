@@ -21,6 +21,10 @@ Player::Player(Camera* camera, glm::vec2 position)
 	};
 }
 
+glm::vec2 Player::GetDirection()
+{
+	return mDirection;
+}
 
 Player::~Player(void)
 {
