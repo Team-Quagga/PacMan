@@ -3,20 +3,17 @@
 
 Player::Player()
 {
-	Player(nullptr, glm::vec2(0,0));
+	Player(glm::vec2(0,0));
 }
 
-Player::Player(Camera* camera, glm::vec2 position)
+Player::Player(glm::vec2 position)
 {
-	mCamera = camera;
 	mPosition = position;
-	invert = false;
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
 		if (glfwGetKey(w,  GLFW_KEY_S ) == GLFW_PRESS)
 		{
 			//position += forward * deltaTime;
-			invert = true;//TODO: troligen skum :/
 		}
 	};
 }
@@ -74,11 +71,6 @@ void Player::Update(GLFWwindow* mWindow)
 	//{
 	//	//position += forward * deltaTime;
 	//	horizontalAngle *= -1;
-	if(invert)
-	{
-		invert = false;
-		horizontalAngle *= -1;
-	}
 	//}
 	// Strafe right
 	if (glfwGetKey(mWindow,  GLFW_KEY_A ) == GLFW_PRESS)
