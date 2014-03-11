@@ -1,8 +1,9 @@
 #include "Blinky.h"
 
-Blinky::Blinky()
+Blinky::Blinky(World* _world)
 {
 	scatterTile = vec2(1, 1);
+	world = _world;
 }
 
 void Blinky::GetTargetTile(vec2 pacmanTile)
