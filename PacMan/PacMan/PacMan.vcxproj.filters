@@ -98,6 +98,8 @@
     <ClCompile Include="Engine\Viewport.cpp">
       <Filter>Engine\source</Filter>
     </ClCompile>
+    <ClCompile Include="AudioEngine.cpp" />
+    <ClCompile Include="AudioSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\ScreenManager.h">
@@ -181,5 +183,7 @@
     <ClInclude Include="Engine\Viewport.h">
       <Filter>Engine\header</Filter>
     </ClInclude>
+    <ClInclude Include="AudioEngine.h" />
+    <ClInclude Include="AudioSource.h" />
   </ItemGroup>
 </Project>

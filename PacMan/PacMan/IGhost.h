@@ -30,6 +30,7 @@ protected:
 	vec2 nextTile; //New
 	vec2 currentTile; //New
 	int time; //New
+	World* world;
 private:
 	void TestTiles(vec2 preferedTile); //New
 	int lastTime; //New

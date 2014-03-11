@@ -21,14 +21,15 @@ void Batch::Load() {
 	material->Load();
 }
 
-void Batch::Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix) {
-	material->SetShaderParams(_modelMatrix, _viewMatrix, _projMatrix);
+void Batch::Draw(GLuint VertexBuffer, glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix) {
 
 	glUseProgram(material->shaderProgram);
+	material->SetShaderParams(_modelMatrix, _viewMatrix, _projMatrix);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
 
 	glDrawElements(GL_TRIANGLES, element_count, GL_UNSIGNED_INT, 0);
+	//material->Unload();
 }
 
 Batch::~Batch(void)

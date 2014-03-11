@@ -25,7 +25,7 @@ void Model::Draw() {
 
 void Model::Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix) {
 	glBindVertexArray(vertexArray);
-	for (int i = 0; i < batches.size(); i++) batches.at(i)->Draw(_modelMatrix, _viewMatrix, _projMatrix);
+	for (int i = 0; i < batches.size(); i++) batches.at(i)->Draw(vertexBuffer, _modelMatrix, _viewMatrix, _projMatrix);
 }
 
 void Model::LoadFromFile(const char* path, float scale)
@@ -70,7 +70,7 @@ void Model::LoadFromFile(const char* path, float scale)
 			fscanf(obj, "%s\n", matName);
 
 			//Material switch
-			current = new Batch(new Material(matName, "../../content/default_material.vs", "../../content/default_material.ps", NULL));
+			current = new Batch(new Material(matName, "../../content/default_material.vs", "../../content/default_material.ps", NULL, NULL));
 			current->vertexBuffer = vertexBuffer;
 			batches.push_back(current);
 		}

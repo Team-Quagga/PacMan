@@ -1,11 +1,14 @@
 #include "IGhost.h"
 
+
+
 void IGhost::Init(vec3 position) 
 {
 	mModel = *Engine::LoadModel("ghost.obj", 1);
 	mPosition = position;
 	time = 0;
 	state = StandingInHouse;
+	
 }
 
 //vec2 IGhost::GetPosition()
@@ -63,7 +66,7 @@ void IGhost::ChoseDirection()
 
 void IGhost::TestTiles(vec2 preferedTile)
 {
-	if (World::GetTile(preferedTile.x, preferedTile.y)->GetWalkable() && (preferedTile.x != currentTile.x && preferedTile.y != currentTile.y))
+	if (world->GetTile(preferedTile.x, preferedTile.y)->GetWalkable() && (preferedTile.x != currentTile.x && preferedTile.y != currentTile.y))
 	{
 		currentTile = nextTile;
 		nextTile = preferedTile;
@@ -72,12 +75,12 @@ void IGhost::TestTiles(vec2 preferedTile)
 	{
 		if (targetTile.y > nextTile.y)
 		{
-			if (World::GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
+			if (world->GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
 			{
 				currentTile = nextTile;
 				nextTile.y++;
 			}
-			else if (World::GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
+			else if (world->GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
 			{
 				currentTile = nextTile;
 				nextTile.y--;
@@ -85,12 +88,12 @@ void IGhost::TestTiles(vec2 preferedTile)
 		}
 		else
 		{
-			if (World::GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
+			if (world->GetTile(nextTile.x, nextTile.y - 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y - 1 != currentTile.y))
 			{
 				currentTile = nextTile;
 				nextTile.y--;
 			}
-			else if (World::GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
+			else if (world->GetTile(nextTile.x, nextTile.y + 1)->GetWalkable() && (nextTile.x != currentTile.x && nextTile.y + 1 != currentTile.y))
 			{
 				currentTile = nextTile;
 				nextTile.y++;
@@ -110,12 +113,12 @@ void IGhost::TestTiles(vec2 preferedTile)
 	}
 	else
 	{
-		if (World::GetTile(nextTile.x - 1, nextTile.y)->GetWalkable() && (nextTile.x - 1 != currentTile.x && nextTile.y != currentTile.y))
+		if (world->GetTile(nextTile.x - 1, nextTile.y)->GetWalkable() && (nextTile.x - 1 != currentTile.x && nextTile.y != currentTile.y))
 		{
 			currentTile = nextTile;
 			nextTile.x--;
 		}
-		else if (World::GetTile(nextTile.x + 1, nextTile.y)->GetWalkable() && (nextTile.x + 1 != currentTile.x && nextTile.y != currentTile.y))
+		else if (world->GetTile(nextTile.x + 1, nextTile.y)->GetWalkable() && (nextTile.x + 1 != currentTile.x && nextTile.y != currentTile.y))
 		{
 			currentTile = nextTile;
 			nextTile.x++;

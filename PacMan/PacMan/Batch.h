@@ -16,7 +16,7 @@ class Batch
 {
 public:
 	void Load();
-	void Draw(glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
+	void Draw(GLuint VertexBuffer, glm::mat4* _modelMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
 	Batch(void);
 	Batch(Material*);
 	~Batch(void);

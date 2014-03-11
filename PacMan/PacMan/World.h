@@ -2,16 +2,12 @@
 #include "Tile.h"
 #include "Batch.h"
 #include <glm\glm.hpp>
-//#include "Blinky.h"
-//#include "Clyde.h"
-//#include "Inky.h"
-//#include "Pinky.h"
+
 
 class World
 {
-	
 	Tile* mMap;
-	Batch mBatch;
+	Batch* mBatch;
 public:
 	int mCandiesEaten;
 	int mCandiesTotal;
@@ -20,10 +16,17 @@ public:
 	World(void);
 	~World(void);
 	bool LoadMap(const char* path);
-	static Tile* GetTile(int x, int y);
+	Tile* GetTile(int x, int y);
 	void Draw(glm::mat4 view, glm::mat4 projection);
 	GLuint LoadBMP(const char * imagepath);
 	glm::vec3 colorData[20][20];
 	Tile map[20][20];
+	void CreateMapBuffer();
+	GLuint vertexBuffer;
+	std::vector<float> vertices;
+	Material* mMaterial;
+	Model wallModel;
+	Model groundModel;
+	Model candyModel;
 };
 
