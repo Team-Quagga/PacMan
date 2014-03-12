@@ -75,7 +75,7 @@ bool World::LoadMap(const char* path)
 			else if(colorData[x][y].g == 255)
 			{
 				Candy* candy = new Candy(x*y);
-				candy->SetSound(new AudioSource(mAEngine, mCandySound, glm::vec3(x,y,0)));
+				candy->SetSound(new AudioSource(mAEngine, mCandySound, glm::vec3(x,0,y)));
 				////candy.Init(glm::vec3(x * 0.5 + 5, 5, y * 0.5 + 5));
 				mCandiesTotal++;
 				map[x][y] = Tile(false, candy, NULL, x, y, 0.05, &wallModel);

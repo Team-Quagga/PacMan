@@ -114,7 +114,7 @@ void Player::Update(GLFWwindow* mWindow)
 			mDirection += 90;
 		}
 
-	std::cout<<mDirection<<std::endl;
+	//std::cout<<mDirection<<std::endl;
 
 	if(mDirection < 0)
 		mDirection += 360;
@@ -154,6 +154,13 @@ void Player::Update(GLFWwindow* mWindow)
 	if(Walkable(targetTile))
 	{
 		mPosition = glm::vec2(mPosition.x + direction.x * 0.03, mPosition.y + direction.y * 0.03);
+		Tile* temp = mWorld->GetTile(mPosition.x, mPosition.y);
+		if(temp->mCandy != NULL)
+		{
+			mWorld->mCandiesEaten++;
+			temp->mCandy->PlaySound();
+			temp->mCandy = NULL;
+		}
 	}
 	
 
@@ -172,7 +179,7 @@ void Player::Update(GLFWwindow* mWindow)
 	else if(rotation < 0 && cameraDirection != cameraTargetDirection)
 		cameraDirection -= 3;
 
-	mCamera->SetPosition(vec3(mPosition.x - direction.x*0.5, 0.5f, mPosition.y - direction.y*0.5));
+	mCamera->SetPosition(vec3(mPosition.x - direction.x*0.5, 1.5f, mPosition.y - direction.y*0.5));
 	mCamera->SetOrientation(25 , cameraDirection);
 	//mCamera->SetOrientation(0 , mDirection + 90);
 	
