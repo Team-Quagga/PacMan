@@ -21,7 +21,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 	targetTile = mPosition;
 	direction = glm::vec2(1,0);
 	mWorld = world;
-
+	cameraDirection = 90;
 	mKeyPress = [&](GLFWwindow* w, int key, int scancode, int action, int mods)
 	{
 		if (glfwGetKey(w,  GLFW_KEY_DOWN ) == GLFW_PRESS)
@@ -46,67 +46,141 @@ Player::~Player(void)
 
 void Player::Update(GLFWwindow* mWindow)
 {
-	static float horizontalAngle;
-	// Initial vertical angle : none
-	static float verticalAngle;
-	// glfwGetTime is called only once, the first time this function is called
-	static double lastTime = glfwGetTime();
+	// Starting values
+	//static float horizontalAngle;
+	//static float verticalAngle;
 
-	// Compute time difference between current and last frame
-	double currentTime = glfwGetTime();
-	float deltaTime = float(currentTime - lastTime);
+	//static double lastTime = glfwGetTime();
 
-	// Get mouse position
-	static double oxpos = 1280/2, oypos = 720/2;
-	double xpos, ypos;
-	glfwGetCursorPos(mWindow, &xpos, &ypos);
+	//// Compute time difference between current and last frame
+	//double currentTime = glfwGetTime();
+	//float deltaTime = float(currentTime - lastTime);
 
-
-	// Compute new orientation
-	horizontalAngle -= (oxpos-xpos)*0.1;//float(1024/2 - xpos );
-	verticalAngle   -= (oypos-ypos)*0.1;//float( 768/2 - ypos );
+	//// Get mouse position
+	//static double oxpos = 1280/2, oypos = 720/2;
+	//double xpos, ypos;
+	//glfwGetCursorPos(mWindow, &xpos, &ypos);
 
 
-	mCamera->Update();
-	// Reset mouse position for next frame
-	glfwSetCursorPos(mWindow, 1280/2, 720/2);
-	if (verticalAngle > 90.0 / 2) verticalAngle = 90.0 / 2;
-	if (verticalAngle < -90.0 / 2) verticalAngle = -90.0 / 2;
+	//// Compute new orientation
+	//horizontalAngle -= (oxpos-xpos)*0.1;//float(1024/2 - xpos );
+	//verticalAngle   -= (oypos-ypos)*0.1;//float( 768/2 - ypos );
 
-	glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
-	glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;
-	glm::vec3 position = mCamera->position;
+
+	//mCamera->Update();
+	//// Reset mouse position for next frame
+	//glfwSetCursorPos(mWindow, 1280/2, 720/2);
+	//if (verticalAngle > 90.0 / 2) verticalAngle = 90.0 / 2;
+	//if (verticalAngle < -90.0 / 2) verticalAngle = -90.0 / 2;
+
+	//glm::vec3 forward = glm::vec3(0, 0, 1) * mCamera->orientation;
+	//glm::vec3 strafe = glm::vec3(1, 0, 0) * mCamera->orientation;
+	//glm::vec3 cameraPosition = mCamera->position;
 	
-	//Move forward
-	if (glfwGetKey(mWindow,  GLFW_KEY_W ) == GLFW_PRESS)
-	{
-	//TODO kollision mot världen så man går rätt 
-		position -= forward * deltaTime;
-	}
-	// Move backward
+	// Camera
+	//if (glfwGetKey(mWindow,  GLFW_KEY_W ) == GLFW_PRESS)
+	//{
+	//	cameraPosition -= forward * deltaTime;
+	//}
+	//if (glfwGetKey(mWindow,  GLFW_KEY_A ) == GLFW_PRESS)
+	//{
+	//	cameraPosition -= strafe * deltaTime;
+	//}
+	//if (glfwGetKey(mWindow,  GLFW_KEY_D ) == GLFW_PRESS)
+	//{
+	//	cameraPosition += strafe * deltaTime;
+	//}
 	//if (glfwGetKey(mWindow,  GLFW_KEY_S ) == GLFW_PRESS)
 	//{
-	//	//position += forward * deltaTime;
-	//	horizontalAngle *= -1;
+	//	cameraPosition += forward * deltaTime;
 	//}
-	// Strafe right
-	if (glfwGetKey(mWindow,  GLFW_KEY_A ) == GLFW_PRESS)
+
+	//mPrevDirection = mDirection;
+
+		// Player
+		if(invert)
+		{
+			invert = false;
+			mDirection -= 180;
+		}
+		if (turnLeft)
+		{
+			turnLeft = false;
+			mDirection -= 90;
+		}
+		if (turnRight)
+		{
+			turnRight = false;
+			mDirection += 90;
+		}
+
+	std::cout<<mDirection<<std::endl;
+
+	if(mDirection < 0)
+		mDirection += 360;
+	if(mDirection >= 360)
+		mDirection -= 360;
+
+	if(mDirection == 0)
+		prefDirection = glm::vec2(1,0);
+	if(mDirection == 90)
+		prefDirection = glm::vec2(0,1);
+	if(mDirection == 180)
+		prefDirection = glm::vec2(-1,0);
+	if(mDirection == 270)
+		prefDirection = glm::vec2(0,-1);
+	//std::cout<<direction.x<<","<<direction.y<<std::endl;
+
+	if(std::abs((mPosition.x - targetTile.x)) < 0.04 && std::abs((mPosition.y - targetTile.y)) < 0.04)
 	{
-		position -= strafe * deltaTime;
-	}
-	// Strafe left
-	if (glfwGetKey(mWindow,  GLFW_KEY_D ) == GLFW_PRESS)
-	{
-		position += strafe * deltaTime;
+		mPosition = targetTile;
+		prefTile = mPosition + prefDirection;
+		if(Walkable(prefTile))
+		{
+			targetTile = prefTile;
+			direction = prefDirection;
+			cameraTargetDirection = mDirection + 90;
+			if(cameraTargetDirection == 360) 
+				cameraTargetDirection = 0;
+			if(cameraDirection - cameraTargetDirection == -90 || cameraDirection - cameraTargetDirection == 270)
+				rotation = 1;
+			else if(cameraDirection - cameraTargetDirection == 90 || cameraDirection - cameraTargetDirection == -270)
+				rotation = -1;
+		}
+		if(Walkable(mPosition + direction))
+			targetTile = mPosition + direction;
 	}
 
-	mCamera->SetPosition(position);
-	mPosition = glm::vec2(position.x, position.z);
-	mCamera->SetOrientation(verticalAngle, horizontalAngle);
+	if(Walkable(targetTile))
+	{
+		mPosition = glm::vec2(mPosition.x + direction.x * 0.03, mPosition.y + direction.y * 0.03);
+	}
+	
+
+
+	transformMatrix[3][0] = mPosition.x;
+	transformMatrix[3][2] = mPosition.y;
+
+	if(cameraDirection < 0)
+		cameraDirection += 360;
+	if(cameraDirection >= 360)
+		cameraDirection -= 360;
+
+
+	if(rotation > 0 && cameraDirection != cameraTargetDirection)
+		cameraDirection += 3 ;
+	else if(rotation < 0 && cameraDirection != cameraTargetDirection)
+		cameraDirection -= 3;
+
+	mCamera->SetPosition(vec3(mPosition.x - direction.x*0.5, 0.5f, mPosition.y - direction.y*0.5));
+	mCamera->SetOrientation(25 , cameraDirection);
+	//mCamera->SetOrientation(0 , mDirection + 90);
+	
+
 	//mCamera->LookAt(glm::vec3(0, 0, 0)); Not working yet
 		
 	// For the next frame, the "last time" will be "now"
-	lastTime = currentTime;
+	//lastTime = currentTime;
 
 	mCamera->Update();
 }

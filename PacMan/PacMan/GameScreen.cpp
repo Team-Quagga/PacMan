@@ -64,7 +64,7 @@ void GameScreen::Draw()
 
 void GameScreen::Update()
 {
-	mPlayer->DebugUpdate(mWindow);
+	mPlayer->Update(mWindow);
 	mAEngine->Update();
 	// Soundtest
 	//if(play) 

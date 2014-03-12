@@ -14,6 +14,9 @@ class Player :
 	glm::vec2 mPosition;
 	// Direction i grader och som vec2
 	int mDirection;
+	int cameraDirection;
+	int cameraTargetDirection;
+	int rotation;
 	int mPrevDirection;
 	glm::vec2 prefDirection;
 	glm::vec2 direction;
