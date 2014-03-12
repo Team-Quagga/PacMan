@@ -1,14 +1,18 @@
 #pragma once
 #include "Tile.h"
 #include "Batch.h"
+#include "AudioSource.h"
+#include "AudioEngine.h"
 #include <glm\glm.hpp>
 
 
 class World
 {
-	Tile* mMap;
-	Batch* mBatch;
+	//Tile* mMap;
+	//Batch* mBatch;
+	AudioStream* mCandySound;
 public:
+	AudioEngine* mAEngine;
 	int mCandiesEaten;
 	int mCandiesTotal;
 	int mPlayerPosXY[2];

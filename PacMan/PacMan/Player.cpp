@@ -15,7 +15,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 	mPosition = position;
 	invert = false;
 	transformMatrix = glm::mat4(1);
-	playerModel.LoadFromFile("../../content/blender_suzanne.obj", 0.3);
+	playerModel.LoadFromFile("../../content/ghost model.obj", 0.3);
 	playerModel.Load();
 	tilePosition = position;
 	targetTile = mPosition;
@@ -196,7 +196,7 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 		prefDirection = glm::vec2(-1,0);
 	if(mDirection == 270)
 		prefDirection = glm::vec2(0,-1);
-	std::cout<<direction.x<<","<<direction.y<<std::endl;
+	//std::cout<<direction.x<<","<<direction.y<<std::endl;
 
 	if(std::abs((mPosition.x - targetTile.x)) < 0.02 && std::abs((mPosition.y - targetTile.y)) < 0.02)
 	{
@@ -214,20 +214,14 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 	if(Walkable(targetTile))
 	{
 		mPosition = glm::vec2(mPosition.x + direction.x * 0.01, mPosition.y + direction.y * 0.01);
+		Tile* temp = mWorld->GetTile(mPosition.x, mPosition.y);
+		if(temp->mCandy != NULL)
+		{
+			mWorld->mCandiesEaten++;
+			temp->mCandy->PlaySound();
+			temp->mCandy = NULL;
+		}
 	}
-	
-
-	/*tempTile = mWorld->GetTile(mPosition.x + (targetTile.x - mPosition.x), mPosition.y + direction.y);
-
-	if(tempTile->mWall)
-	{
-		direction = prevDirection;
-		mDirection = mPrevDirection;
-	}
-	else
-	{
-		mPosition = glm::vec2(mPosition.x + direction.x * 0.01, mPosition.y + direction.y * 0.01);
-	}*/
 
 	transformMatrix[3][0] = mPosition.x;
 	transformMatrix[3][2] = mPosition.y;

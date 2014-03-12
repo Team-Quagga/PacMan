@@ -15,20 +15,20 @@ struct AudioStream
     short bytesPerSample,bitsPerSample;
     unsigned int dataSize;
 	unsigned char* buf;
+	ALuint buffer;                                                           //Stores the sound data
+    ALuint frequency;                                               //The Sample Rate of the WAVE file
+	ALuint source;                                                              //Is the name of source (where the sound come from)
+    ALenum format;                                                            //The audio format (bits per sample, number of channels)
+	int LoadAudioFile(const char* path);
 };
 
 class AudioSource
 {
-	ALuint source;                                                              //Is the name of source (where the sound come from)
-    ALuint buffer;                                                           //Stores the sound data
-    ALuint frequency;                                               //The Sample Rate of the WAVE file
-    ALenum format;                                                            //The audio format (bits per sample, number of channels)
 	glm::vec3 mPosition;
-	AudioStream mStream;
-	int LoadAudioFile(const char* path);
 public:
+	AudioStream mStream;
 	AudioSource(){};
-	AudioSource(AudioEngine* engine, const char* path, glm::vec3 position);
+	AudioSource(AudioEngine* engine, AudioStream* stream, glm::vec3 position);
 	~AudioSource(void);
 	void Play();
 	void Set(AudioEngine* engine);

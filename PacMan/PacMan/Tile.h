@@ -6,13 +6,11 @@
 class IGhost;
 class Tile
 {
-	
-	
-	IGhost* mGhost;
 	Model* model;
-	Model* candyModel;
 	glm::mat4 transformMatrix;
 public:
+	Model* candyModel;
+	IGhost* mGhost;
 	Tile(void){};
 	Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, float z, Model* _model);
 	~Tile(void);

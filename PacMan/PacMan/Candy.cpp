@@ -27,3 +27,14 @@ void Candy::Init(vec3 position)
 	mPosition = position;
 	//Initiate buffers?
 }
+
+
+void Candy::SetSound(AudioSource* a)
+{
+	mSound = a;
+}
+
+void Candy::PlaySound()
+{
+	mSound->Play();
+}

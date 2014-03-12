@@ -25,6 +25,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 		//if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 		//	play = true;
 	};
+	Input::GetInstance()->Register(*this);
 	mAEngine = new AudioEngine(mCamera);
 	// Soundtest
 	//mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
@@ -76,8 +77,10 @@ void GameScreen::Update()
 
 bool GameScreen::LoadWorld(const char* path)
 {
+	mWorld.mAEngine = mAEngine;
 	if(!mWorld.LoadMap(path))
 		return false;
+
 
 	mPlayer = new Player(mCamera, glm::vec2(1,1), &mWorld);
 	Input::GetInstance()->Register(*mPlayer);
