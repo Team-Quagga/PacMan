@@ -38,5 +38,5 @@ void Tile::Draw(glm::mat4 view, glm::mat4 projection)
 
 bool Tile::GetWalkable()
 {
-	return mWall;
+	return !mWall;
 }
