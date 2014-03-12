@@ -2,8 +2,9 @@
 
 in vec3 inputPosition;
 in vec3 inputColor;
-in vec2 texCoord;
+varying vec2 texCoord;
 in vec3 inputNormal;
+in vec3 diffuseColor;
 
 vec3 LightPos = vec3(5, 3, 5);
 
@@ -12,8 +13,7 @@ out vec2 texcoord;
 out vec3 normal;
 out vec3 light;
 out vec3 vertex;
-
-uniform sampler2D Texture0;
+out vec3 diffuse;
 
 uniform mat4 worldMatrix;
 uniform mat4 viewMatrix;
@@ -28,4 +28,5 @@ void main(void)
 	normal = inputNormal;
 	light = LightPos;
 	vertex = inputPosition;
+	diffuse = diffuseColor;
 }

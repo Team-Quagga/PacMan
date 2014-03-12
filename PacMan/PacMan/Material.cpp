@@ -1,12 +1,12 @@
 #include "Engine\Engine.h"
 
 #include "Material.h"
+#include <SOIL.h>
 
 Material::Material(void) {}
 
 Material::Material(const char* _name, const char* _vs, const char* _ps, const char* _gs, const char* _tex) : name(_name)
 {
-	tex = _tex;
 	const char* vertexShaderBuffer = Engine::ReadFile(_vs);
 	const char* fragmentShaderBuffer = Engine::ReadFile(_ps);
 
@@ -105,15 +105,56 @@ void Material::SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, 
 	loc = glGetUniformLocation(shaderProgram, "projectionMatrix");
 	glUniformMatrix4fv(loc, 1, false, &(*_projMatrix)[0][0]);
 
-	if(tex != NULL)
+	loc = glGetAttribLocation(shaderProgram, "diffuseColor");
+	glVertexAttrib3f(loc, diffuseColor.r, diffuseColor.g, diffuseColor.b);
+
+	if(diffuseTexture != NULL)
 	{
-		loc = glGetUniformLocation(shaderProgram, "tex");
-		glUniform1f(loc, 1);
+		glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+
+		loc = glGetUniformLocation(shaderProgram, "diffuseTexture");
+		glUniform1f(loc, 0);
+
+		if (transparent) {
+			glEnable(GL_BLEND);
+		}
+	}
+}
+
+void Material::ResetParams() {
+	if (transparent) {
+		glDisable(GL_BLEND);
 	}
 }
 
 void Material::SetDiffuseColor(glm::color _color) {
 	diffuseColor = _color;
+}
+
+void Material::SetDiffuseTexture(const char* _diffusePath) {
+	GLuint diffuseTexture;
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &diffuseTexture);
+
+	int width, height;
+	diffuseTexture = SOIL_load_OGL_texture(_diffusePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
+	if (!diffuseTexture) printf("error loading texture\n");
+	//unsigned char* diffuseData = SOIL_load_image(_diffusePath, &width, &height, 0, SOIL_LOAD_RGB);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, diffuseData);
+
+	glBindTexture(GL_TEXTURE_2D, diffuseTexture);
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_TEXTURE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+void Material::SetSemiTransparent(bool _transparent) {
+	transparent = _transparent;
 }
 
 Material::~Material(void)

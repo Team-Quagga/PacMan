@@ -1,10 +1,28 @@
-# Blender MTL File: 'ground.blend'
-# Material Count: 1
+# Blender MTL File: 'creapy.blend'
+# Material Count: 3
 
-newmtl ghostMaterial
+newmtl Ghost_cover
 Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.453125
+illum 2
+
+newmtl Ghost_eye
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 0.800000 0.700000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Ghost_pupils
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.004484 0.004484 0.004484
 Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000

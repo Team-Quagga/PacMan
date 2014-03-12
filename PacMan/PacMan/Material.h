@@ -19,14 +19,18 @@ public:
 	void Unload();
 	const char* GetName() { return name; }
 	void SetShaderParams(glm::mat4* _worldMatrix, glm::mat4* _viewMatrix, glm::mat4* _projMatrix);
+	void ResetParams();
 	void SetDiffuseColor(glm::color _color);
+	void SetDiffuseTexture(const char* _diffusePath);
+	void SetSemiTransparent(bool _transparent);
 
 	GLuint shaderProgram;
 private:
 	Material(void);
+	bool transparent;
 	const char* name;
 	glm::color diffuseColor;
-	const char* tex;
+	GLuint diffuseTexture;
 	GLuint vertexShader;
 	GLuint geometryShader;
 	GLuint fragmentShader;

@@ -1,0 +1,22 @@
+# Blender MTL File: 'mushrooms.blend'
+# Material Count: 2
+
+newmtl Mushrooms_head
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.039650 0.000000
+Ks 0.034161 0.034161 0.034161
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ..\..\content\diff.png
+
+newmtl Mushrooms_material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.032864 0.032864 0.032864
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ..\..\content\diff.png

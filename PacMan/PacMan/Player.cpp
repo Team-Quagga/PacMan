@@ -15,7 +15,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 	mPosition = position;
 	invert = false;
 	transformMatrix = glm::mat4(1);
-	playerModel.LoadFromFile("../../content/ghost model.obj", 0.3);
+	playerModel.LoadFromFile("../../content/ghost.obj", 0.3);
 	playerModel.Load();
 	tilePosition = position;
 	targetTile = mPosition;

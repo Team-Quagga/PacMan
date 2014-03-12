@@ -27,10 +27,22 @@ public:
 	Tile map[20][20];
 	void CreateMapBuffer();
 	GLuint vertexBuffer;
-	std::vector<float> vertices;
-	Material* mMaterial;
+	std::vector<float> vertices; //do we need those?
+	Material* mMaterial; //??
+private:
+	Model ghostModel;
 	Model wallModel;
 	Model groundModel;
 	Model candyModel;
+	Model mushroomsModel;
+	Model candlesModel;
+	Model gravestoneModel;
+	struct random_prop {
+		random_prop(glm::mat4* _transform, Model* _model) : transform(_transform), model(_model) {}
+		Model* model;
+		glm::mat4* transform;
+	};
+	std::vector<random_prop*> random_props;
+	random_prop* AddRandomProp(Model*, float x, float y, float z, int probability);
 };
 
