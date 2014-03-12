@@ -6,10 +6,11 @@
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
+#include "Player.h"
 
-World::World(void)
+World::World(Camera* _camera)
 {
-	
+	camera = _camera;
 }
 
 
@@ -61,6 +62,7 @@ bool World::LoadMap(const char* path)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
+				pacman = new Player(camera, glm::vec2(1,1), this);
 				map[x][y] = Tile(false, NULL, NULL, x*1, y*1, &wallModel);
 				printf("C");
 			}
@@ -120,6 +122,9 @@ bool World::LoadMap(const char* path)
 		}
 		printf("\n");
 	}
+
+	Input::GetInstance()->Register(*pacman);
+
 	return true;
 }
 
@@ -127,6 +132,14 @@ Tile* World::GetTile(int x, int y)
 {
 	return &map[x][y];
 }
+
+void World::Update(GLFWwindow* window)
+{
+	blinky->Update(pacman->GetPosition());
+
+	pacman->DebugUpdate(window);
+}
+
 void World::Draw(glm::mat4 view, glm::mat4 projection)
 {
 	//mBatch->Draw(&glm::mat4(1), &view, &projection);
@@ -140,6 +153,7 @@ void World::Draw(glm::mat4 view, glm::mat4 projection)
 
 	blinky->Draw(view, projection);
 
+	pacman->Draw(*camera->GetViewMatrix(), *camera->GetProjMatrix());
 	//groundModel.Draw(&glm::mat4(1), &view, &projection);
 	
 }

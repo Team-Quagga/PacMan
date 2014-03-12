@@ -1,6 +1,5 @@
 #pragma once
 #include "engine\iscreen.h"
-#include "World.h"
 #include "Player.h"
 #include "Engine\Camera.h"
 #include "Model.h"
@@ -8,10 +7,10 @@
 #include "AudioSource.h"
 #include "AudioEngine.h"
 
+
 class GameScreen: public IScreen
 {
 	World mWorld;
-	Player* mPlayer;
 	Camera* mCamera;
 	AudioEngine* mAEngine;
 	// Soundtest

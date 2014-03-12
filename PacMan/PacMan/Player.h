@@ -41,5 +41,6 @@ public:
 	void SetPosition(glm::vec2 position);
 	void SetDirection(glm::vec2 direction);
 	void Draw(glm::mat4 view, glm::mat4 projection);
+	glm::vec2 GetTile();
 };
 

@@ -274,10 +274,14 @@ void Player::SetKeyFunction(KeyPressFun f)
 	mKeyPress = f;
 }
 
-
 glm::vec2 Player::GetPosition()
 {
 	return mPosition;
+}
+
+glm::vec2 Player::GetTile()
+{
+	return tilePosition;
 }
 
 glm::vec2 Player::GetDirection()

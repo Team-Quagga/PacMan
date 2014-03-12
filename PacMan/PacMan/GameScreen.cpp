@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <iostream>
 
+
 GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	:IScreen(manager, window)//mAEngine(nullptr),mASource("WAVE/sound.wav", glm::vec3(1,1,1))
 {
@@ -13,7 +14,6 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 	mCamera = new Camera(new Viewport(0,0, width, height));
 		Viewport* viewport = mCamera->GetViewport();
 		viewport->BuildProjectionMatrix(60.0f, (float)width / (float)height, 0.1f, 250.0f);
-
 		
 	mCamera->SetOrientation(0, 0.1);
 	mCamera->SetPosition(glm::vec3(0.0, 0.0, 0.0));
@@ -25,7 +25,7 @@ GameScreen::GameScreen(ScreenManager* manager, GLFWwindow* window)
 		//if(key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 		//	play = true;
 	};
-
+	mWorld = World(mCamera);
 	mAEngine = new AudioEngine(mCamera);
 	// Soundtest
 	//mASource = new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
@@ -56,15 +56,16 @@ void GameScreen::Draw()
 	
 	//mModel.Draw(&transformM2, mCamera->GetViewMatrix(), mCamera->GetProjMatrix());
 	mWorld.Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
-	mPlayer->Draw(*mCamera->GetViewMatrix(), *mCamera->GetProjMatrix());
+	
 
 	glDisable(GL_DEPTH_TEST);
 }
 
 void GameScreen::Update()
 {
-	mPlayer->DebugUpdate(mWindow);
+	mWorld.Update(mWindow);
 	mAEngine->Update();
+	//mWorld.
 	// Soundtest
 	//if(play) 
 	//{
@@ -79,6 +80,6 @@ bool GameScreen::LoadWorld(const char* path)
 	if(!mWorld.LoadMap(path))
 		return false;
 
-	mPlayer = new Player(mCamera, glm::vec2(1,1), &mWorld);
-	Input::GetInstance()->Register(*mPlayer);
+	
+	
 }
