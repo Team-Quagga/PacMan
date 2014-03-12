@@ -15,7 +15,7 @@ class IGhost:protected IGameObject
 public:
 	IGhost(){};
 	virtual void Init(vec3 position);
-	virtual void Draw();
+	virtual void Draw(glm::mat4 view, glm::mat4 projection);
 	void ChoseDirection();
 	void Move();
 	void Update();
@@ -31,6 +31,7 @@ protected:
 	vec2 currentTile; //New
 	int time; //New
 	World* world;
+	glm::mat4 transFormMatrix;
 private:
 	void TestTiles(vec2 preferedTile); //New
 	int lastTime; //New

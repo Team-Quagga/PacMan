@@ -3,11 +3,19 @@
 #include "Batch.h"
 #include <glm\glm.hpp>
 
+class Blinky;
+class Clyde;
+class Inky;
+class Pinky;
 
 class World
 {
 	Tile* mMap;
 	Batch* mBatch;
+	Blinky* blinky;
+	Clyde* clyde;
+	Inky* inky;
+	Pinky* pinky;
 public:
 	int mCandiesEaten;
 	int mCandiesTotal;

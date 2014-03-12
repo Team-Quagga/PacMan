@@ -4,11 +4,15 @@
 
 void IGhost::Init(vec3 position) 
 {
-	mModel = *Engine::LoadModel("ghost.obj", 1);
+	//mModel = *Engine::LoadModel("blender_suzanne.obj", 1);
+	mModel.LoadFromFile("../../content/blender_suzanne.obj", 0.2);
+	mModel.Load();
 	mPosition = position;
 	time = 0;
 	state = StandingInHouse;
-	
+	transFormMatrix = glm::mat4(1);
+	transFormMatrix[3][0] = position.x;
+	transFormMatrix[3][2] = position.z;
 }
 
 //vec2 IGhost::GetPosition()
@@ -22,9 +26,10 @@ void IGhost::SuperCandy()
 	time = 0;
 }
 
-void IGhost::Draw()
+
+void IGhost::Draw(glm::mat4 view, glm::mat4 projection)
 {
-	mModel.Draw();
+	mModel.Draw(&transFormMatrix, &view, &projection);
 }
 
 //TODO: Test!

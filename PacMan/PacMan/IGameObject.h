@@ -9,7 +9,6 @@ using namespace glm;
 class IGameObject
 {
 public: 
-	virtual void Draw() = 0;
 	virtual void Init(vec3 position) = 0;
 protected:
 	Model mModel;

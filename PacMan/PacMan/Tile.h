@@ -6,9 +6,6 @@
 class IGhost;
 class Tile
 {
-	
-	
-	IGhost* mGhost;
 	Model* model;
 	Model* candyModel;
 	glm::mat4 transformMatrix;
@@ -21,5 +18,6 @@ public:
 	void AddCandyModel(Model* _candyModel);
 	bool mWall;
 	Candy* mCandy;
+	IGhost* mGhost;
 };
 

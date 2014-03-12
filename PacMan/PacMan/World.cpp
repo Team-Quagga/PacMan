@@ -1,13 +1,11 @@
 #include <gl\glew.h>
 #include "World.h"
 #include <glm\glm.hpp>
+#include "Model.h"
 #include "Blinky.h"
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
-#include "Model.h"
-
-static class Tile;
 
 World::World(void)
 {
@@ -24,11 +22,11 @@ bool World::LoadMap(const char* path)
 {
 	World::map;
 
-	Blinky blinky = Blinky(this);
-	Clyde clyde;
-	Inky inky;
-	Pinky pinky;
+	blinky = new Blinky(this);
+
 	GLuint mapID = LoadBMP(path);
+
+	
 
 	bool superCandy;
 
@@ -59,7 +57,7 @@ bool World::LoadMap(const char* path)
 				map[x][y] = Tile(true, NULL, NULL, x*1, y*1, &wallModel);
 				printf("H");
 			}
-			else if(colorData[x][y].b == 255)
+			else if(colorData[x][y].r == 255)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
@@ -74,25 +72,26 @@ bool World::LoadMap(const char* path)
 				map[x][y].AddCandyModel(&candyModel);
 				//printf(".");
 			}
-			else if(colorData[x][y].r == 255)
+			else if(colorData[x][y].b == 255)
 			{
 				printf("G");
 				switch(ghostCounter)
 				{
 				case 0:
-					map[x][y] = Tile(false,NULL,&blinky, x*1, y*1, &wallModel);
+					blinky->Init(glm::vec3(x, 0, y));
+					map[x][y] = Tile(false,NULL,blinky, x*1, y*1, &wallModel);
 					ghostCounter++;
 					break;
 				case 1:
-					map[x][y] = Tile(false,NULL,&clyde, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false,NULL,clyde, x*1, y*1, &wallModel);
 					ghostCounter++;
 					break;
 				case 2:
-					map[x][y] = Tile(false,NULL,&inky, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false,NULL,inky, x*1, y*1, &wallModel);
 					ghostCounter++;
 					break;
 				case 3:
-					map[x][y] = Tile(false,NULL,&pinky, x*1, y*1, &wallModel);
+					map[x][y] = Tile(false,NULL,pinky, x*1, y*1, &wallModel);
 					ghostCounter++;
 					break;
 				}
@@ -111,6 +110,10 @@ bool World::LoadMap(const char* path)
 		for (int x = 0; x < 20 ; x++)
 		{
 			if(map[x][y].mCandy != NULL)
+				printf(".");
+			else if(map[x][y].mGhost != NULL)
+				printf("G");
+			else if(map[x][y].mWall)
 				printf("H");
 			else
 				printf(" ");
@@ -134,6 +137,8 @@ void World::Draw(glm::mat4 view, glm::mat4 projection)
 			map[x][y].Draw(view, projection);
 		}
 	}
+
+	blinky->Draw(view, projection);
 
 	//groundModel.Draw(&glm::mat4(1), &view, &projection);
 	
