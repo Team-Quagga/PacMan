@@ -46,16 +46,18 @@ bool World::LoadMap(const char* path)
 	// Load candy
 	candyModel.LoadFromFile("../../content/cherry.obj", 0.1);
 	candyModel.Load();
+	mCandySound = new AudioStream();//new AudioSource(mAEngine, "WAVE/Sound.wav", glm::vec3(0,0,0));
+	mCandySound->LoadAudioFile("WAVE/Sound.wav");
 
 	// Random props
 	srand(time(NULL));
-		mushroomsModel.LoadFromFile("../../content/mushrooms.obj", 0.5);
+		mushroomsModel.LoadFromFile("../../content/mushrooms.obj", 1);
 		mushroomsModel.Load();
 
-		candlesModel.LoadFromFile("../../content/candles.obj", 0.2);
+		candlesModel.LoadFromFile("../../content/candles.obj", 0.25);
 		candlesModel.Load();
 
-		gravestoneModel.LoadFromFile("../../content/gravestone.obj", 0.2);
+		gravestoneModel.LoadFromFile("../../content/gravestone.obj", 0.5);
 		gravestoneModel.Load();
 
 		ghostModel.LoadFromFile("../../content/ghost.obj", 0.2);
@@ -68,15 +70,15 @@ bool World::LoadMap(const char* path)
 		{
 			if(colorData[x][y].b == 255 && colorData[x][y].g == 255 && colorData[x][y].r == 255)
 			{
-				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
-				random_prop* prop = AddRandomProp(&gravestoneModel, x*0.5, y*0.5, 0, 10);
+				map[x][y] = Tile(false, NULL, NULL, x, y, 0, &wallModel);
+				random_prop* prop = AddRandomProp(&gravestoneModel, x, y, 0, 10);
 				if (prop)random_props.push_back(prop);
 				//printf(" ");
 			}
 			else if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
 			{
-				map[x][y] = Tile(true, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
-				random_prop* prop = AddRandomProp(&mushroomsModel, x*0.5, y*0.5, 0, 10);
+				map[x][y] = Tile(true, NULL, NULL, x, y, 0, &wallModel);
+				random_prop* prop = AddRandomProp(&mushroomsModel, x, y, 0, 10);
 				if (prop)random_props.push_back(prop);
 				//printf("H");
 			}
@@ -95,7 +97,7 @@ bool World::LoadMap(const char* path)
 				mCandiesTotal++;
 				map[x][y] = Tile(false, candy, NULL, x, y, 0.05, &wallModel);
 				map[x][y].AddCandyModel(&candyModel);
-				random_prop* prop = AddRandomProp(&candlesModel, x*0.5, y*0.5, 0, 10);
+				random_prop* prop = AddRandomProp(&candlesModel, x, y, 0, 10);
 				if (prop)random_props.push_back(prop);
 				//printf(".");
 			}
