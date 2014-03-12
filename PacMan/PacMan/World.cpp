@@ -1,3 +1,4 @@
+#include <ctime>
 #include <gl\glew.h>
 #include "World.h"
 #include <glm\glm.hpp>
@@ -39,6 +40,20 @@ bool World::LoadMap(const char* path)
 	candyModel.LoadFromFile("../../content/cherry.obj", 0.05);
 	candyModel.Load();
 
+	// Random props
+	srand(time(NULL));
+		mushroomsModel.LoadFromFile("../../content/mushrooms.obj", 0.5);
+		mushroomsModel.Load();
+
+		candlesModel.LoadFromFile("../../content/candles.obj", 0.2);
+		candlesModel.Load();
+
+		gravestoneModel.LoadFromFile("../../content/gravestone.obj", 0.2);
+		gravestoneModel.Load();
+
+		ghostModel.LoadFromFile("../../content/ghost.obj", 0.2);
+		ghostModel.Load();
+
 	int ghostCounter = 0;
 	for (int y = 0; y < 20 ; y++)
 	{
@@ -47,11 +62,15 @@ bool World::LoadMap(const char* path)
 			if(colorData[x][y].b == 255 && colorData[x][y].g == 255 && colorData[x][y].r == 255)
 			{
 				map[x][y] = Tile(false, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
+				random_prop* prop = AddRandomProp(&gravestoneModel, x*0.5, y*0.5, 0, 10);
+				if (prop)random_props.push_back(prop);
 				//printf(" ");
 			}
 			else if(colorData[x][y].b == 0 && colorData[x][y].g == 0 && colorData[x][y].r == 0)
 			{
 				map[x][y] = Tile(true, NULL, NULL, x*0.5, y*0.5, 0, &wallModel);
+				random_prop* prop = AddRandomProp(&mushroomsModel, x*0.5, y*0.5, 0, 10);
+				if (prop)random_props.push_back(prop);
 				//printf("H");
 			}
 			else if(colorData[x][y].b == 255)
@@ -67,6 +86,8 @@ bool World::LoadMap(const char* path)
 				////candy.Init(glm::vec3(x * 0.5 + 5, 5, y * 0.5 + 5));
 				map[x][y] = Tile(false, &candy, NULL, x*0.5, y*0.5, 0.05, &wallModel);
 				map[x][y].AddCandyModel(&candyModel);
+				random_prop* prop = AddRandomProp(&candlesModel, x*0.5, y*0.5, 0, 10);
+				if (prop)random_props.push_back(prop);
 				//printf(".");
 			}
 			else if(colorData[x][y].r == 255)
@@ -118,6 +139,20 @@ Tile* World::GetTile(int x, int y)
 {
 	return nullptr;
 }
+
+World::random_prop* World::AddRandomProp(Model* model, float x, float y, float z, int probability) {
+	int random = (rand() % probability);
+	if (random == 0) {
+		glm::mat4* transform = new glm::mat4(1);
+		(*transform)[3][0] = x;
+		(*transform)[3][1] = z;
+		(*transform)[3][2] = y;
+
+		return new random_prop(transform, model);
+	}
+	else return NULL;
+}
+
 void World::Draw(glm::mat4 view, glm::mat4 projection)
 {
 	//mBatch->Draw(&glm::mat4(1), &view, &projection);
@@ -130,6 +165,12 @@ void World::Draw(glm::mat4 view, glm::mat4 projection)
 	}
 
 	groundModel.Draw(&glm::mat4(1), &view, &projection);
+
+	//Draw some random stuff
+	for (int i = 0; i < random_props.size(); i++) {
+		random_prop* prop = random_props.at(i);
+		prop->model->Draw(prop->transform, &view, &projection);
+	}
 	
 }
 

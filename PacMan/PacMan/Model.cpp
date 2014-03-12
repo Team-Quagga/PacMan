@@ -1,4 +1,5 @@
 #include "Model.h"
+#include <SOIL.h>
 
 Model::Model(void) {}
 
@@ -148,8 +149,8 @@ void Model::LoadFromFile(const char* path, float scale)
 				shared[(vertexIndex[i] - 1) * 11 + 1] = pos.y;
 				shared[(vertexIndex[i] - 1) * 11 + 2] = pos.z;
 
-				shared[(vertexIndex[i] - 1) * 11 + 6] = uv.x;
-				shared[(vertexIndex[i] - 1) * 11 + 7] = uv.y;
+				shared[(vertexIndex[i] - 1) * 11 + 5] = uv.x;
+				shared[(vertexIndex[i] - 1) * 11 + 6] = uv.y;
 
 				shared[(vertexIndex[i] - 1) * 11 + 8] = norm.x;
 				shared[(vertexIndex[i] - 1) * 11 + 9] = norm.y;
@@ -176,15 +177,29 @@ void Model::LoadFromFile(const char* path, float scale)
 		if (strcmp(lineHeader, "newmtl") == 0)
 		{
 			char* matName = (char*)malloc(128);
-			fscanf(obj, "%s\n", matName);
+			fscanf(mtl, "%s\n", matName);
 
 			current_material = FindMaterial(matName);
 		}
 		if (strcmp(lineHeader, "Kd") == 0) {
 			glm::color color(1, 0, 0);
-			fscanf(obj, "%f %f %f\n", &color.x, &color.y, &color.z);
+			fscanf(mtl, "%f %f %f\n", &color.x, &color.y, &color.z);
 
-			//current_material->SetDiffuseColor(color);
+			if (current_material) current_material->SetDiffuseColor(color);
+		}
+		if (strcmp(lineHeader, "d") == 0) {
+			float transparency;
+			fscanf(mtl, "%f\n", &transparency);
+
+			if (transparency < 1.0) current_material->SetSemiTransparent(true);
+		}
+		if (strcmp(lineHeader, "map_Kd") == 0) {
+			char* diffusePath = (char*)malloc(128);
+			fscanf(mtl, "%s\n", diffusePath);
+
+			printf("loading image %s\n", diffusePath);
+
+			current_material->SetDiffuseTexture(diffusePath);
 		}
 	}
 

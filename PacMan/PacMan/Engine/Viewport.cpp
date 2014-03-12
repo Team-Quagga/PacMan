@@ -33,7 +33,7 @@ glm::quat Viewport::BuildViewMatrix(vec3 _euler, vec3 _translation) {
 	quat axis2 = angleAxis(_euler.x, XAXIS);
 
 	quat orientation = axis2 * axis1;
-	mat3 rotmat = mat3_cast(orientation);
+	//mat3 rotmat = mat3_cast(orientation);
 
 	viewMatrix = glm::toMat4(orientation);
 

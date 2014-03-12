@@ -1,19 +1,19 @@
-# Blender MTL File: 'cherry.blend'
+# Blender MTL File: 'candles.blend'
 # Material Count: 2
 
-newmtl Cherry_red
+newmtl Candles_holder
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
-Kd 0.825947 0.000000 0.002944
-Ks 0.500000 0.500000 0.500000
+Kd 0.053445 0.031901 0.051931
+Ks 0.135417 0.135417 0.135417
 Ni 1.000000
 d 1.000000
 illum 2
 
-newmtl Cherry_rest
+newmtl Candles_material
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
-Kd 0.139639 0.131449 0.109732
+Kd 0.800000 0.781817 0.320593
 Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
