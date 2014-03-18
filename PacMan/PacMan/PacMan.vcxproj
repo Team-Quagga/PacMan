@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -85,6 +85,7 @@
     <ClCompile Include="Blinky.cpp" />
     <ClCompile Include="Candy.cpp" />
     <ClCompile Include="Clyde.cpp" />
+    <ClCompile Include="EndScreen.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Graphics.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Blinky.h" />
     <ClInclude Include="Candy.h" />
     <ClInclude Include="Clyde.h" />
+    <ClInclude Include="EndScreen.h" />
     <ClInclude Include="Engine\Button.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Engine.h" />

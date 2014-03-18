@@ -2,17 +2,16 @@
 #include <gl\glew.h>
 #include "World.h"
 #include <glm\glm.hpp>
+#include "Model.h"
 #include "Blinky.h"
 #include "Clyde.h"
 #include "Inky.h"
 #include "Pinky.h"
-#include "Model.h"
+#include "Player.h"
 
-static class Tile;
-
-World::World(void)
+World::World(Camera* _camera)
 {
-	
+	camera = _camera;
 }
 
 
@@ -25,13 +24,13 @@ bool World::LoadMap(const char* path)
 {
 	World::map;
 
-	Blinky blinky = Blinky(this);
-	Clyde clyde;
-	Inky inky;
-	Pinky pinky;
+	blinky = new Blinky(this);
+
 	GLuint mapID = LoadBMP(path);
 	mCandiesTotal = 0;
 	mCandiesEaten = 0;
+
+	
 
 	bool superCandy;
 
@@ -82,12 +81,16 @@ bool World::LoadMap(const char* path)
 				if (prop)random_props.push_back(prop);
 				//printf("H");
 			}
-			else if(colorData[x][y].b == 255)
+			else if(colorData[x][y].r == 255)
 			{
 				mPlayerPosXY[0] = x;
 				mPlayerPosXY[1] = y;
-				map[x][y] = Tile(false, NULL, NULL, x, y, 0, &wallModel);
-				//printf("C");
+
+
+				pacman = new Player(camera, glm::vec2(1,1), this);
+				map[x][y] = Tile(false, NULL, NULL, x*1, y*1, 0, &wallModel);
+				printf("C");
+
 			}
 			else if(colorData[x][y].g == 255)
 			{
@@ -101,25 +104,26 @@ bool World::LoadMap(const char* path)
 				if (prop)random_props.push_back(prop);
 				//printf(".");
 			}
-			else if(colorData[x][y].r == 255)
+			else if(colorData[x][y].b == 255)
 			{
 				//printf("G");
 				switch(ghostCounter)
 				{
 				case 0:
-					map[x][y] = Tile(false, NULL, &blinky, x, y, 0, &wallModel);
+					blinky->Init(glm::vec3(x, 0, y));
+					map[x][y] = Tile(false,NULL,blinky, x*1, y*1, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 1:
-					map[x][y] = Tile(false, NULL, &clyde, x, y, 0, &wallModel);
+					map[x][y] = Tile(false,NULL,clyde, x*1, y*1, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 2:
-					map[x][y] = Tile(false, NULL, &inky, x, y, 0, &wallModel);
+					map[x][y] = Tile(false,NULL,inky, x*1, y*1, 0, &wallModel);
 					ghostCounter++;
 					break;
 				case 3:
-					map[x][y] = Tile(false, NULL, &pinky, x, y, 0, &wallModel);
+					map[x][y] = Tile(false,NULL,pinky, x*1, y*1, 0, &wallModel);
 					ghostCounter++;
 					break;
 				}
@@ -138,12 +142,19 @@ bool World::LoadMap(const char* path)
 		for (int x = 0; x < 20 ; x++)
 		{
 			if(map[x][y].mCandy != NULL)
+				printf(".");
+			else if(map[x][y].mGhost != NULL)
+				printf("G");
+			else if(map[x][y].mWall)
 				printf("H");
 			else
 				printf(" ");
 		}
 		printf("\n");
 	}
+
+	Input::GetInstance()->Register(*pacman);
+
 	return true;
 	*/
 	return true;
@@ -167,6 +178,14 @@ World::random_prop* World::AddRandomProp(Model* model, float x, float y, float z
 	else return NULL;
 }
 
+void World::Update(GLFWwindow* window, GameScreen* s)
+{
+	blinky->Update(pacman->GetPosition());
+
+	pacman->Update(window, s);
+
+}
+
 void World::Draw(glm::mat4 view, glm::mat4 projection)
 {
 	//mBatch->Draw(&glm::mat4(1), &view, &projection);
@@ -178,6 +197,9 @@ void World::Draw(glm::mat4 view, glm::mat4 projection)
 		}
 	}
 
+	blinky->Draw(view, projection);
+
+	pacman->Draw(*camera->GetViewMatrix(), *camera->GetProjMatrix());
 	//groundModel.Draw(&glm::mat4(1), &view, &projection);
 	
 	//Draw some random stuff

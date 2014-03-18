@@ -4,9 +4,9 @@ class ScreenManager;
 class IScreen:public KeyObserver
 {
 protected:
-	ScreenManager* mManager;
 	GLFWwindow* mWindow;
 public:
+	ScreenManager* mManager;
 	IScreen(ScreenManager* manager, GLFWwindow* window)
 	{
 		mManager = manager;

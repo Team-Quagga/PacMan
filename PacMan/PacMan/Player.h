@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "Tile.h"
 #include "World.h"
+class GameScreen;
 
 class Player :
 	public KeyObserver
@@ -36,13 +37,14 @@ public:
 	Player();
 	Player(Camera* camera, glm::vec2 position, World* world);
 	~Player(void);
-	void Update(GLFWwindow* mWindow);
-	void DebugUpdate(GLFWwindow* mWindow);
+	void Update(GLFWwindow* mWindow, GameScreen* s);
+	void DebugUpdate(GLFWwindow* mWindow, GameScreen* s);
 	void SetKeyFunction(KeyPressFun f);
 	glm::vec2 GetPosition();
 	glm::vec2 GetDirection();
 	void SetPosition(glm::vec2 position);
 	void SetDirection(glm::vec2 direction);
 	void Draw(glm::mat4 view, glm::mat4 projection);
+	glm::vec2 GetTile();
 };
 

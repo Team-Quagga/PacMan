@@ -5,6 +5,7 @@
 
 #include "MenuScreen.h"
 #include "GameScreen.h"
+#include "EndScreen.h"
 
 
 #define WIDTH 1280
@@ -36,8 +37,8 @@ int main()
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		//Disable doublesided
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
 
 		/* update */
 		manager.Update();

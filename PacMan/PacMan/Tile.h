@@ -10,7 +10,7 @@ class Tile
 	glm::mat4 transformMatrix;
 public:
 	Model* candyModel;
-	IGhost* mGhost;
+	//IGhost* mGhost;
 	Tile(void){};
 	Tile(bool wall, Candy* candy, IGhost* ghost, float x, float y, float z, Model* _model);
 	~Tile(void);
@@ -19,5 +19,6 @@ public:
 	void AddCandyModel(Model* _candyModel);
 	bool mWall;
 	Candy* mCandy;
+	IGhost* mGhost;
 };
 

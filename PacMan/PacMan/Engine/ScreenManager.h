@@ -55,6 +55,7 @@ inline void ScreenManager::AddScreen(IScreen* screen)
 
 inline void ScreenManager::RemoveScreen(IScreen* screen)
 {
+	m_size--;
 	mScreens.erase(mScreens.begin() + getIndex(screen));
 }
 

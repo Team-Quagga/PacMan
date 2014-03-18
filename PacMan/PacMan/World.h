@@ -6,21 +6,38 @@
 #include <glm\glm.hpp>
 
 
+class Blinky;
+class Clyde;
+class Inky;
+class Pinky;
+class Player;
+class Camera;
+class GameScreen;
+
 class World
 {
-	//Tile* mMap;
-	//Batch* mBatch;
 	AudioStream* mCandySound;
+
+	Tile* mMap;
+	Batch* mBatch;
+	Player* pacman;
+	Camera* camera;
+	Blinky* blinky;
+	Clyde* clyde;
+	Inky* inky;
+	Pinky* pinky;
 public:
 	AudioEngine* mAEngine;
 	int mCandiesEaten;
 	int mCandiesTotal;
 	int mPlayerPosXY[2];
 	int mGhostPosXY[2];
-	World(void);
+	World(Camera* camera);
+	World(){};
 	~World(void);
 	bool LoadMap(const char* path);
 	Tile* GetTile(int x, int y);
+	void Update(GLFWwindow* window, GameScreen* s);
 	void Draw(glm::mat4 view, glm::mat4 projection);
 	GLuint LoadBMP(const char * imagepath);
 	glm::vec3 colorData[20][20];

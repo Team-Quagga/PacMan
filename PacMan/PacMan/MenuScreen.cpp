@@ -34,6 +34,7 @@ MenuScreen::MenuScreen(ScreenManager* manager, GLFWwindow* window)
 			GameScreen* game = new GameScreen(mManager, mWindow);
 			mManager->AddScreen(game);
 			mManager->SetFocus(game);
+			RemoveMe();
 			mActive = false;
 		}
 	});

@@ -30,6 +30,7 @@ void Batch::Draw(GLuint VertexBuffer, glm::mat4* _modelMatrix, glm::mat4* _viewM
 
 	glDrawElements(GL_TRIANGLES, element_count, GL_UNSIGNED_INT, 0);
 	material->ResetParams();
+	glUseProgram(0);
 	//material->Unload();
 }
 

@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <iostream>
 #include "World.h"
+#include "EndScreen.h"
+#include "GameScreen.h"
 
 Player::Player()
 {
@@ -15,7 +17,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 	mPosition = position;
 	invert = false;
 	transformMatrix = glm::mat4(1);
-	playerModel.LoadFromFile("../../content/ghost.obj", 0.3);
+	playerModel.LoadFromFile("../../content/sphere.obj", 0.3);
 	playerModel.Load();
 	tilePosition = position;
 	targetTile = mPosition;
@@ -26,7 +28,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 	{
 		if (glfwGetKey(w,  GLFW_KEY_DOWN ) == GLFW_PRESS)
 		{
-			//position += forward * deltaTime;
+			invert = true;
 		}
 		if (glfwGetKey(w,  GLFW_KEY_LEFT ) == GLFW_PRESS)
 		{
@@ -37,6 +39,7 @@ Player::Player(Camera* camera, glm::vec2 position, World* world)
 			turnRight = true;
 		}
 	};
+	Input::GetInstance()->Register(*this);
 }
 
 
@@ -44,7 +47,7 @@ Player::~Player(void)
 {
 }
 
-void Player::Update(GLFWwindow* mWindow)
+void Player::Update(GLFWwindow* mWindow, GameScreen* s)
 {
 	// Starting values
 	//static float horizontalAngle;
@@ -98,7 +101,7 @@ void Player::Update(GLFWwindow* mWindow)
 	//mPrevDirection = mDirection;
 
 		// Player
-		if(invert)
+		if (invert)
 		{
 			invert = false;
 			mDirection -= 180;
@@ -114,7 +117,6 @@ void Player::Update(GLFWwindow* mWindow)
 			mDirection += 90;
 		}
 
-	//std::cout<<mDirection<<std::endl;
 
 	if(mDirection < 0)
 		mDirection += 360;
@@ -129,7 +131,7 @@ void Player::Update(GLFWwindow* mWindow)
 		prefDirection = glm::vec2(-1,0);
 	if(mDirection == 270)
 		prefDirection = glm::vec2(0,-1);
-	//std::cout<<direction.x<<","<<direction.y<<std::endl;
+	
 
 	if(std::abs((mPosition.x - targetTile.x)) < 0.04 && std::abs((mPosition.y - targetTile.y)) < 0.04)
 	{
@@ -161,6 +163,14 @@ void Player::Update(GLFWwindow* mWindow)
 			temp->mCandy->PlaySound();
 			temp->mCandy = NULL;
 		}
+		if(temp->mGhost != nullptr || glfwGetKey(mWindow, GLFW_KEY_SPACE))
+		{
+			EndScreen* game = new EndScreen(s->mManager, mWindow);
+			s->mManager->AddScreen(game);
+			s->mManager->SetFocus(game);
+			s->mManager->RemoveScreen(s);
+			//mActive = false;
+		}
 	}
 	
 
@@ -175,11 +185,11 @@ void Player::Update(GLFWwindow* mWindow)
 
 
 	if(rotation > 0 && cameraDirection != cameraTargetDirection)
-		cameraDirection += 3 ;
+		cameraDirection += 3;
 	else if(rotation < 0 && cameraDirection != cameraTargetDirection)
 		cameraDirection -= 3;
 
-	mCamera->SetPosition(vec3(mPosition.x - direction.x*0.5, 1.5f, mPosition.y - direction.y*0.5));
+	mCamera->SetPosition(vec3(mPosition.x - direction.x*0.5, 0.5f, mPosition.y - direction.y*0.5));
 	mCamera->SetOrientation(25 , cameraDirection);
 	//mCamera->SetOrientation(0 , mDirection + 90);
 	
@@ -192,7 +202,7 @@ void Player::Update(GLFWwindow* mWindow)
 	mCamera->Update();
 }
 
-void Player::DebugUpdate(GLFWwindow* mWindow)
+void Player::DebugUpdate(GLFWwindow* mWindow, GameScreen* s)
 {
 	// Starting values
 	static float horizontalAngle;
@@ -262,7 +272,6 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 			mDirection += 90;
 		}
 
-	//std::cout<<mDirection<<std::endl;
 
 	if(mDirection < 0)
 		mDirection += 360;
@@ -277,7 +286,7 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 		prefDirection = glm::vec2(-1,0);
 	if(mDirection == 270)
 		prefDirection = glm::vec2(0,-1);
-	//std::cout<<direction.x<<","<<direction.y<<std::endl;
+	
 
 	if(std::abs((mPosition.x - targetTile.x)) < 0.02 && std::abs((mPosition.y - targetTile.y)) < 0.02)
 	{
@@ -301,6 +310,14 @@ void Player::DebugUpdate(GLFWwindow* mWindow)
 			mWorld->mCandiesEaten++;
 			temp->mCandy->PlaySound();
 			temp->mCandy = NULL;
+		}
+		if(temp->mGhost != nullptr || glfwGetKey(mWindow, GLFW_KEY_SPACE))
+		{
+			EndScreen* game = new EndScreen(s->mManager, mWindow);
+			s->mManager->AddScreen(game);
+			s->mManager->SetFocus(game);
+			s->mManager->RemoveScreen(s);
+			//mActive = false;
 		}
 	}
 

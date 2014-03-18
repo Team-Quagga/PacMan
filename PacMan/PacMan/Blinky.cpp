@@ -20,6 +20,7 @@ void Blinky::GetTargetTile(vec2 pacmanTile)
 
 void Blinky::Update(vec2 pacmanTile)
 {
+	UpdateBase();
 	if (state == StandingInHouse)
 	{
 		if (time < 1000)
@@ -35,7 +36,7 @@ void Blinky::Update(vec2 pacmanTile)
 	}
 	else if (state == Scatter)
 	{
-		if (mPosition.x == scatterTile.x * 10 + 5 && mPosition.z == scatterTile.y * 10 + 5)
+		if (abs(mPosition.x - scatterTile.x) < 0.02 && abs(mPosition.z - scatterTile.y) < 0.02)
 		{
 			state = Chase;
 			time = 0;
